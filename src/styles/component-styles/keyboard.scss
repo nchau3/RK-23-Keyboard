@@ -16,8 +16,14 @@
 }
 
 .key {
+  flex: 1;
+  color: black;
   user-select: none;
   position: relative;
+
+  &:active {
+    filter: invert(0.10);
+  }
 }
 
 .key-white {

@@ -1,7 +1,7 @@
 export default function Key(props) {
   return (
-    <div className="key">
-      {props.note} {props.octave}
+    <div 
+      className={props.whiteKey ? "key key-white" : "key key-black"}>
     </div>
   )
 }

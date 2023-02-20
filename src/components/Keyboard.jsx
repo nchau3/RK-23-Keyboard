@@ -30,6 +30,7 @@ export default function Keyboard() {
           note={key[0]}
           octave={index}
           freq={key[1]}
+          whiteKey={key[0].length === 2 ? false : true}
         />
       )
     })
