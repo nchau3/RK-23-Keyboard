@@ -44,8 +44,8 @@ export default function Keyboard() {
           octave={index}
           freq={key[1]}
           whiteKey={key[0].length === 2 ? false : true}
-          notePressed={notePressed}
-          noteReleased={noteReleased}
+          onMouseDown={notePressed}
+          onMouseUp={noteReleased}
         />
       )
     })
