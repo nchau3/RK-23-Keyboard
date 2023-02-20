@@ -1,3 +1,6 @@
+//styles
+import "../styles/component-styles/controls.scss"
+
 export default function Controls() {
   return (
     <div className="controls">
