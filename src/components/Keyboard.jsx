@@ -9,7 +9,7 @@ import useAudioContext from "../useAudioContext";
 import "../styles/component-styles/keyboard.scss";
 
 export default function Keyboard() {
-  const { audioContext, mainGainNode, oscList, volume, changeVolume, noteFreq } = useAudioContext();
+  const { audioContext, mainGainNode, oscList, masterGain, changeMasterGain, noteFreq } = useAudioContext();
 
   const playTone = (freq) => {
     const osc = audioContext.createOscillator();
@@ -53,7 +53,7 @@ export default function Keyboard() {
 
   return (
     <div className="keyboard">
-      <Controls />
+      <Controls masterGain={masterGain} onChange={changeMasterGain}/>
       <div className="keys-container">
         {pianoKeys}
       </div>

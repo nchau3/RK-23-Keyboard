@@ -17,13 +17,13 @@ for (let i = 0; i < 9; i++) {
 }
 
 export default function useAudioContext() {
-  const [volume, setVolume] = useState(0.25);
+  const [masterGain, setMasterGain] = useState(0.25);
 
-  mainGainNode.gain.value = volume;
+  mainGainNode.gain.value = masterGain;
   
-  const changeVolume = (newValue) => {
-    setVolume(newValue);
+  const changeMasterGain = (newValue) => {
+    setMasterGain(newValue);
   }
 
-  return { audioContext, mainGainNode, oscList, volume, changeVolume, noteFreq };
+  return { audioContext, mainGainNode, oscList, masterGain, changeMasterGain, noteFreq };
 }
