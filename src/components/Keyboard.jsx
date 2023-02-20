@@ -20,6 +20,19 @@ export default function Keyboard() {
     return osc;
   }
 
+  //start and store oscillator so it can be indexed/stopped on key release
+  const notePressed = (octave, note, freq) => {
+    const octaveIndex = Number(octave);
+    oscList[octaveIndex][note] = playTone(freq);
+  }
+
+  //retrieve active oscillator, stop playback and delete
+  const noteReleased = (octave, note) => {
+    const octaveIndex = Number(octave);
+    oscList[octaveIndex][note].disconnect();
+    delete oscList[octave][note];
+  }
+
   const pianoKeys = noteFreq.map((keys, index) => {
     const keyList = Object.entries(keys);
 
@@ -31,6 +44,8 @@ export default function Keyboard() {
           octave={index}
           freq={key[1]}
           whiteKey={key[0].length === 2 ? false : true}
+          notePressed={notePressed}
+          noteReleased={noteReleased}
         />
       )
     })
