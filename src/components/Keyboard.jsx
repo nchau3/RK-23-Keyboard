@@ -20,11 +20,26 @@ export default function Keyboard() {
     return osc;
   }
 
+  const pianoKeys = noteFreq.map((keys, index) => {
+    const keyList = Object.entries(keys);
+
+    return keyList.map((key) => {
+      return (
+        <Key 
+          key={key[0]}
+          note={key[0]}
+          octave={index}
+          freq={key[1]}
+        />
+      )
+    })
+  })
+
   return (
     <div className="keyboard">
       <Controls />
       <div className="keys-container">
-        <Key />
+        {pianoKeys}
       </div>
     </div>
   )
