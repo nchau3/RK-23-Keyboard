@@ -1,6 +1,6 @@
 import { useState } from "react";
 import createNoteTable from "./noteTable";
-import * as voiceSelect from "./voices";
+import * as voiceSelect from "./voiceSelect";
 
 //context and main nodes declared outside of component
 const audioContext = new AudioContext();
