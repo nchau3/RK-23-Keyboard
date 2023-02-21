@@ -7,6 +7,18 @@ export default function Controls(props) {
   return (
     <div className="controls">
       <div className="slider-container">
+        <span>Master Volume:</span>
+        <input
+          type="range"
+          id="master_gain"
+          min="0.0"
+          max="1.0"
+          step="0.01"
+          value={`${masterVolume}`}
+          name="master_gain" 
+          onChange={e => props.onChange("masterVolume", e.target.value)}/>
+      </div>
+      <div className="slider-container">
         <span>Master Gain:</span>
         <input
           type="range"
