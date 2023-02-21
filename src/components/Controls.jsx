@@ -1,5 +1,6 @@
 //styles
 import "../styles/component-styles/controls.scss"
+import VoiceSelect from "./VoiceSelect";
 
 export default function Controls(props) {
   const { masterVolume, masterGain } = props.sliders;
@@ -30,6 +31,7 @@ export default function Controls(props) {
           name="master_gain" 
           onChange={e => props.onChange("masterGain", e.target.value)}/>
       </div>
+      <VoiceSelect />
     </div>
   )
 }
