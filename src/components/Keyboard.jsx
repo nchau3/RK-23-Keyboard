@@ -9,15 +9,30 @@ import useAudioContext from "../useAudioContext";
 import "../styles/component-styles/keyboard.scss";
 
 export default function Keyboard() {
-  const { audioContext, mainGainNode, oscList, masterGain, changeMasterGain, noteFreq } = useAudioContext();
+  const { audioContext, mainGainNode, oscList, sliders, changeSliders, noteFreq, voice, changeVoice } = useAudioContext();
 
   const playTone = (freq) => {
-    const osc = audioContext.createOscillator();
-    osc.frequency.value = freq;
-    osc.connect(mainGainNode);
-    osc.start();
+    const voiceNode = audioContext.createChannelMerger();
 
-    return osc;
+    for (let i = 1; i <= voice.harmonics.length; i++) {
+      //stack oscillators according to specified harmonics
+      const osc = audioContext.createOscillator();
+      osc.type = voice.type;
+
+      //multiples of fundamental frequency
+      osc.frequency.value = freq * i;
+
+      //set gain of each harmonic
+      const oscGainNode = audioContext.createGain();
+      oscGainNode.gain.value = voice.harmonics[i - 1];
+
+      osc.connect(oscGainNode);
+      osc.start();
+      oscGainNode.connect(voiceNode);
+    }
+    voiceNode.connect(mainGainNode);
+
+    return voiceNode;
   }
 
   //start and store oscillator so it can be indexed/stopped on key release
@@ -53,7 +68,7 @@ export default function Keyboard() {
 
   return (
     <div className="keyboard">
-      <Controls masterGain={masterGain} onChange={changeMasterGain}/>
+      <Controls sliders={sliders} onChange={changeSliders} onSelect={changeVoice}/>
       <div className="keys-container">
         {pianoKeys}
       </div>

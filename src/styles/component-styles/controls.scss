@@ -1,5 +1,9 @@
+@use "../variables.scss";
+
 .controls {
-  height: 40%;
+  display: flex;
+  flex-direction: column;
+  height: 70%;
   width: 100%;
 }
 
@@ -17,5 +21,31 @@
   input {
     width: 60%;
     height: 50%;
+  }
+}
+
+.voice-select {
+  display: flex;
+  width: 100%;
+  justify-content: space-around;
+  margin-bottom: 1rem;
+
+  li {
+    background-color: variables.$accent-color;
+    color: variables.$primary-color;
+    font-size: 1.2em;
+    font-weight: bold;
+    padding: .75em;
+    border-radius: 1em;
+    user-select: none;
+    filter: invert(.35);
+
+    &:hover {
+      opacity: 0.9;
+    }
+  }
+
+  .selected {
+    filter: none;
   }
 }

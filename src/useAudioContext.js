@@ -1,10 +1,13 @@
 import { useState } from "react";
 import createNoteTable from "./noteTable";
+import * as voiceSelect from "./voiceSelect";
 
 //context and main nodes declared outside of component
 const audioContext = new AudioContext();
+const mainVolumeNode = audioContext.createGain();
 const mainGainNode = audioContext.createGain();
-mainGainNode.connect(audioContext.destination);
+mainVolumeNode.connect(audioContext.destination);
+mainGainNode.connect(mainVolumeNode);
 
 //note frequencies array
 const noteFreq = createNoteTable();
@@ -16,14 +19,34 @@ for (let i = 0; i < 9; i++) {
   oscList[i] = {};
 }
 
+//manage state of all audio settings (gain, voice select, filters)
 export default function useAudioContext() {
-  const [masterGain, setMasterGain] = useState(0.25);
+  const [sliders, setSliders] = useState({
+    masterVolume: 0.5,
+    masterGain: 0.5
+  });
 
-  mainGainNode.gain.value = masterGain;
+  const [voice, setVoice] = useState(voiceSelect.voice1);
+
+  mainVolumeNode.gain.value = sliders.masterVolume;
+  mainGainNode.gain.value = sliders.masterGain;
   
-  const changeMasterGain = (newValue) => {
-    setMasterGain(newValue);
+  const changeSliders = (slider, newValue) => {
+    setSliders(prev => ({...prev, [slider]: newValue}));
   }
 
-  return { audioContext, mainGainNode, oscList, masterGain, changeMasterGain, noteFreq };
+  const changeVoice = (newVoice) => {
+    setVoice(voiceSelect[newVoice]);
+  }
+
+  return { 
+    audioContext,
+    mainGainNode,
+    oscList,
+    sliders,
+    changeSliders,
+    noteFreq,
+    voice,
+    changeVoice
+   };
 }

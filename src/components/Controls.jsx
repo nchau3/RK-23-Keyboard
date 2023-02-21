@@ -1,9 +1,24 @@
 //styles
 import "../styles/component-styles/controls.scss"
+import VoiceSelect from "./VoiceSelect";
 
 export default function Controls(props) {
+  const { masterVolume, masterGain } = props.sliders;
+
   return (
     <div className="controls">
+      <div className="slider-container">
+        <span>Master Volume:</span>
+        <input
+          type="range"
+          id="master_gain"
+          min="0.0"
+          max="1.0"
+          step="0.01"
+          value={`${masterVolume}`}
+          name="master_gain" 
+          onChange={e => props.onChange("masterVolume", e.target.value)}/>
+      </div>
       <div className="slider-container">
         <span>Master Gain:</span>
         <input
@@ -12,10 +27,11 @@ export default function Controls(props) {
           min="0.0"
           max="1.0"
           step="0.01"
-          value={`${props.masterGain}`}
+          value={`${masterGain}`}
           name="master_gain" 
-          onChange={e => props.onChange(e.target.value)}/>
+          onChange={e => props.onChange("masterGain", e.target.value)}/>
       </div>
+      <VoiceSelect onSelect={props.onSelect} />
     </div>
   )
 }
