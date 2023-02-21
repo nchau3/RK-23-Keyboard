@@ -1,9 +1,10 @@
 import { useState } from "react"
 
-export default function VoiceSelect() {
+export default function VoiceSelect(props) {
   const [selected, setSelected] = useState("voice1");
 
   const changeVoice = (newVoice) => {
+    props.onSelect(newVoice);
     setSelected(newVoice);
   }
 

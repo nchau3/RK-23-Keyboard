@@ -9,7 +9,7 @@ import useAudioContext from "../useAudioContext";
 import "../styles/component-styles/keyboard.scss";
 
 export default function Keyboard() {
-  const { audioContext, mainGainNode, oscList, sliders, changeSliders, noteFreq, voice, setVoice } = useAudioContext();
+  const { audioContext, mainGainNode, oscList, sliders, changeSliders, noteFreq, voice, changeVoice } = useAudioContext();
 
   const playTone = (freq) => {
     const voiceNode = audioContext.createChannelMerger();
@@ -68,7 +68,7 @@ export default function Keyboard() {
 
   return (
     <div className="keyboard">
-      <Controls sliders={sliders} onChange={changeSliders}/>
+      <Controls sliders={sliders} onChange={changeSliders} onSelect={changeVoice}/>
       <div className="keys-container">
         {pianoKeys}
       </div>

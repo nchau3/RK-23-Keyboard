@@ -31,7 +31,7 @@ export default function Controls(props) {
           name="master_gain" 
           onChange={e => props.onChange("masterGain", e.target.value)}/>
       </div>
-      <VoiceSelect />
+      <VoiceSelect onSelect={props.onSelect} />
     </div>
   )
 }

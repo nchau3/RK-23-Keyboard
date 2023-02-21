@@ -35,6 +35,10 @@ export default function useAudioContext() {
     setSliders(prev => ({...prev, [slider]: newValue}));
   }
 
+  const changeVoice = (newVoice) => {
+    setVoice(voiceSelect[newVoice]);
+  }
+
   return { 
     audioContext,
     mainGainNode,
@@ -43,6 +47,6 @@ export default function useAudioContext() {
     changeSliders,
     noteFreq,
     voice,
-    setVoice
+    changeVoice
    };
 }
