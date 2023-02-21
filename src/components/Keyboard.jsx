@@ -9,12 +9,12 @@ import useAudioContext from "../useAudioContext";
 import "../styles/component-styles/keyboard.scss";
 
 export default function Keyboard() {
-  const { audioContext, mainGainNode, oscList, masterGain, changeMasterGain, noteFreq } = useAudioContext();
+  const { audioContext, mainGainNode, oscList, masterGain, changeMasterGain, noteFreq, voiceArray, setVoiceArray } = useAudioContext();
 
-  const playTone = (freq, harmonicArray) => {
+  const playTone = (freq) => {
     const voiceNode = audioContext.createChannelMerger();
 
-    for (let i = 1; i <= harmonicArray.length; i++) {
+    for (let i = 1; i <= voiceArray.length; i++) {
       //stack oscillators according to specified harmonics
       const osc = audioContext.createOscillator();
 
@@ -23,7 +23,7 @@ export default function Keyboard() {
 
       //set gain of each harmonic
       const oscGainNode = audioContext.createGain();
-      oscGainNode.gain.value = harmonicArray[i - 1];
+      oscGainNode.gain.value = voiceArray[i - 1];
 
       osc.connect(oscGainNode);
       osc.start();
@@ -35,9 +35,9 @@ export default function Keyboard() {
   }
 
   //start and store oscillator so it can be indexed/stopped on key release
-  const notePressed = (octave, note, freq, harmonicArray) => {
+  const notePressed = (octave, note, freq) => {
     const octaveIndex = Number(octave);
-    oscList[octaveIndex][note] = playTone(freq, harmonicArray);
+    oscList[octaveIndex][note] = playTone(freq);
   }
 
   //retrieve active oscillator, stop playback and delete
