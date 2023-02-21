@@ -9,21 +9,22 @@ import useAudioContext from "../useAudioContext";
 import "../styles/component-styles/keyboard.scss";
 
 export default function Keyboard() {
-  const { audioContext, mainGainNode, oscList, sliders, changeSliders, noteFreq, voiceArray, setVoiceArray } = useAudioContext();
+  const { audioContext, mainGainNode, oscList, sliders, changeSliders, noteFreq, voice, setVoice } = useAudioContext();
 
   const playTone = (freq) => {
     const voiceNode = audioContext.createChannelMerger();
 
-    for (let i = 1; i <= voiceArray.length; i++) {
+    for (let i = 1; i <= voice.harmonics.length; i++) {
       //stack oscillators according to specified harmonics
       const osc = audioContext.createOscillator();
+      osc.type = voice.type;
 
       //multiples of fundamental frequency
       osc.frequency.value = freq * i;
 
       //set gain of each harmonic
       const oscGainNode = audioContext.createGain();
-      oscGainNode.gain.value = voiceArray[i - 1];
+      oscGainNode.gain.value = voice.harmonics[i - 1];
 
       osc.connect(oscGainNode);
       osc.start();

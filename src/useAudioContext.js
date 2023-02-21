@@ -22,11 +22,11 @@ for (let i = 0; i < 9; i++) {
 //manage state of all audio settings (gain, voice select, filters)
 export default function useAudioContext() {
   const [sliders, setSliders] = useState({
-    masterVolume: 0.25,
-    masterGain: 0.25
+    masterVolume: 0.5,
+    masterGain: 0.5
   });
 
-  const [voiceArray, setVoiceArray] = useState(voiceSelect.voice1);
+  const [voice, setVoice] = useState(voiceSelect.voice1);
 
   mainVolumeNode.gain.value = sliders.masterVolume;
   mainGainNode.gain.value = sliders.masterGain;
@@ -42,7 +42,7 @@ export default function useAudioContext() {
     sliders,
     changeSliders,
     noteFreq,
-    voiceArray,
-    setVoiceArray
+    voice,
+    setVoice
    };
 }
