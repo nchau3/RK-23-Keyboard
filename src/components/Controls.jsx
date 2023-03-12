@@ -1,5 +1,6 @@
 //styles
 import "../styles/component-styles/controls.scss"
+import OctaveSwitch from "./OctaveSwitch";
 import VoiceSelect from "./VoiceSelect";
 
 export default function Controls(props) {
@@ -31,7 +32,10 @@ export default function Controls(props) {
           name="master_gain" 
           onChange={e => props.onChange("masterGain", e.target.value)}/>
       </div>
-      <VoiceSelect onSelect={props.onSelect} />
+      <span className="lower-bar">
+        <VoiceSelect onSelect={props.onSelect} />
+        <OctaveSwitch />
+      </span>
     </div>
   )
 }

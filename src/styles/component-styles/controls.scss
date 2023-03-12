@@ -26,10 +26,9 @@
 
 .voice-select {
   display: flex;
-  width: 100%;
+  width: 60%;
   justify-content: space-around;
-  margin-bottom: 1rem;
-
+  
   li {
     background-color: variables.$accent-color;
     color: variables.$primary-color;
@@ -39,13 +38,28 @@
     border-radius: 1em;
     user-select: none;
     filter: invert(.35);
-
+    
     &:hover {
       opacity: 0.9;
     }
   }
-
+  
   .selected {
     filter: none;
   }
+}
+
+.lower-bar {
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+  margin-bottom: 1rem;
+}
+
+.octave-switch {
+  border: solid 1px;
+  display: flex;
+  justify-content: space-between;
+  font-size: 2.5rem;
+  width: 20%;
 }
