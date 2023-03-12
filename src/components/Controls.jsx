@@ -34,7 +34,7 @@ export default function Controls(props) {
       </div>
       <span className="lower-bar">
         <VoiceSelect onSelect={props.onSelect} />
-        <OctaveSwitch />
+        <OctaveSwitch octave={props.octave} setOctave={props.setOctave}/>
       </span>
     </div>
   )

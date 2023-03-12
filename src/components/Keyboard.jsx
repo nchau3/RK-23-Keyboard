@@ -7,12 +7,30 @@ import useAudioContext from "../useAudioContext";
 
 //styles
 import "../styles/component-styles/keyboard.scss";
+import { useState } from "react";
 
 export default function Keyboard() {
   const { audioContext, mainGainNode, oscList, sliders, changeSliders, noteFreq, voice, changeVoice } = useAudioContext();
+  const [octaveModifier, setOctaveModifier] = useState(0);
+
+  const convertOctave = (modifier) => {
+    switch (modifier) {
+      case -2:
+        return 0.25;
+      case -1:
+        return 0.5;
+      case 0:
+        return 1;
+      case 1:
+        return 2;
+      case 2:
+        return 4;
+    }
+  }
 
   const playTone = (freq) => {
     const voiceNode = audioContext.createChannelMerger();
+    const actualFreq = freq * convertOctave(octaveModifier);
 
     for (let i = 1; i <= voice.harmonics.length; i++) {
       //stack oscillators according to specified harmonics
@@ -20,7 +38,7 @@ export default function Keyboard() {
       osc.type = voice.type;
 
       //multiples of fundamental frequency
-      osc.frequency.value = freq * i;
+      osc.frequency.value = actualFreq * i;
 
       //set gain of each harmonic
       const oscGainNode = audioContext.createGain();
@@ -68,7 +86,7 @@ export default function Keyboard() {
 
   return (
     <div className="keyboard">
-      <Controls sliders={sliders} onChange={changeSliders} onSelect={changeVoice}/>
+      <Controls sliders={sliders} onChange={changeSliders} onSelect={changeVoice} octave={octaveModifier} setOctave={setOctaveModifier}/>
       <div className="keys-container">
         {pianoKeys}
       </div>
