@@ -21,6 +21,10 @@
   user-select: none;
   position: relative;
 
+  input {
+    display: none;
+  }
+
   &:active {
     filter: invert(0.10);
   }

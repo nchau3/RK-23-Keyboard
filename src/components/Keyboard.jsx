@@ -68,6 +68,7 @@ export default function Keyboard() {
 
   const pianoKeys = noteFreq.map((keys, index) => {
     const keyList = Object.entries(keys);
+    const qwertyInputs = [];
 
     return keyList.map((key) => {
       return (
