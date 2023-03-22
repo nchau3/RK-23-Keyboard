@@ -1,5 +1,13 @@
-//components
 import { useEffect, useRef, useState } from 'react';
+import {
+  RecoilRoot,
+  atom,
+  selector,
+  useRecoilState,
+  useRecoilValue
+} from 'recoil';
+
+//components
 import Keyboard from './components/Keyboard';
 
 //styles
@@ -28,15 +36,17 @@ function App() {
 
   return (
     //tabIndex allows autofocus of App on load to receive keyboard inputs
-    <div 
-      id="App"
-      ref={ref}
-      tabIndex={-1}
-      onKeyDown={e => handleKeyDown(e)}
-      onKeyUp={e => handleKeyUp(e)}>
-      <h1>KEYBOARD</h1>
-      <Keyboard keysPressed={keysPressed}/>
-    </div>
+    <RecoilRoot>
+      <div 
+        id="App"
+        ref={ref}
+        tabIndex={-1}
+        onKeyDown={e => handleKeyDown(e)}
+        onKeyUp={e => handleKeyUp(e)}>
+        <h1>KEYBOARD</h1>
+        <Keyboard keysPressed={keysPressed}/>
+      </div>
+    </RecoilRoot>
   )
 }
 
