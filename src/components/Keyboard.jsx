@@ -68,15 +68,19 @@ export default function Keyboard() {
 
   const pianoKeys = noteFreq.map((keys, index) => {
     const keyList = Object.entries(keys);
-    const qwertyInputs = [];
+    const keyboardInputs = ['a', 'w', 's', 'd', 'r', 'f', 't', 'g', 'h', 'u', 'j', 'i', 'k', 'o', 'l', ';'];
+
+    let i = -1;
 
     return keyList.map((key) => {
+      i++;
       return (
         <Key 
           key={key[0]}
           note={key[0]}
           octave={index}
           freq={key[1]}
+          input={keyboardInputs[i]}
           whiteKey={key[0].length === 2 ? false : true}
           onMouseDown={notePressed}
           onMouseUp={noteReleased}
