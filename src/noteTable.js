@@ -4,7 +4,7 @@ export default function createNoteTable() {
     noteFreq[i] = [];
   }
 
-  noteFreq[2]["A"] = 110;
+/*   noteFreq[2]["A"] = 110;
   noteFreq[2]["Bb"] = 116.54;
   noteFreq[2]["B"] = 123.47;
   noteFreq[3]["C"] = 130.81;
@@ -15,7 +15,7 @@ export default function createNoteTable() {
   noteFreq[3]["F"] = 174.61;
   noteFreq[3]["F#"] = 185;
   noteFreq[3]["G"] = 196;
-  noteFreq[3]["Ab"] = 207.65;
+  noteFreq[3]["Ab"] = 207.65; */
   noteFreq[3]["A"] = 220;
   noteFreq[3]["Bb"] = 233.08;
   noteFreq[3]["B"] = 246.94;
@@ -32,7 +32,7 @@ export default function createNoteTable() {
   noteFreq[4]["Bb"] = 466.16;
   noteFreq[4]["B"] = 493.88;
   noteFreq[5]["C"] = 523.25;
-  noteFreq[5]["C#"] = 554.37;
+/*   noteFreq[5]["C#"] = 554.37;
   noteFreq[5]["D"] = 587.33;
   noteFreq[5]["Eb"] = 622.25;
   noteFreq[5]["E"] = 659.25;
@@ -43,7 +43,7 @@ export default function createNoteTable() {
   noteFreq[5]["A"] = 880;
   noteFreq[5]["Bb"] = 932.33;
   noteFreq[5]["B"] = 987.77;
-  noteFreq[6]["C"] = 1046.50;
+  noteFreq[6]["C"] = 1046.50; */
 
   return noteFreq;
 }
