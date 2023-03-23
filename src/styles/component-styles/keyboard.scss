@@ -1,5 +1,5 @@
 .keyboard {
-  height: 450px;
+  height: 600px;
   width: 850px;
   border: solid white;
   display: flex;
@@ -40,12 +40,12 @@
 
 .key-black {
   height: 55%;
-  max-width: 2.5%;
+  max-width: 5%;
   color: white;
   border-bottom: solid 1px;
   background-color: black;
   position: relative;
-  margin: 0 -25px 0 0;
-  transform: translateX(-60%);
+  margin: 0 -45px 0 0;
+  transform: translateX(-55%);
   z-index: 2;
 }
