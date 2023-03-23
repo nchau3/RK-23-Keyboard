@@ -1,10 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import {
-  RecoilRoot,
   atom,
-  selector,
-  useRecoilState,
-  useRecoilValue
+  useRecoilState
 } from 'recoil';
 
 //components
@@ -13,17 +10,22 @@ import Keyboard from './components/Keyboard';
 //styles
 import './styles/App.scss';
 
+//recoil state
+const keysPressedState = atom({
+  key: 'keysPressedState',
+  default: []
+});
+
 function App() {
-  const [keysPressed, setKeysPressed] = useState([]);
+  const [keysPressed, setKeysPressed] = useRecoilState(keysPressedState);
 
   const handleKeyDown = (event) => {
-    console.log(event);
     const update = [...keysPressed, event.key];
     setKeysPressed(update);
   }
 
   const handleKeyUp = (event) => {
-    console.log(event);
+    console.log(keysPressed);
     const update = keysPressed.filter(key => key !== event.key);
     setKeysPressed(update);
   }
@@ -36,7 +38,6 @@ function App() {
 
   return (
     //tabIndex allows autofocus of App on load to receive keyboard inputs
-    <RecoilRoot>
       <div 
         id="App"
         ref={ref}
@@ -44,9 +45,8 @@ function App() {
         onKeyDown={e => handleKeyDown(e)}
         onKeyUp={e => handleKeyUp(e)}>
         <h1>KEYBOARD</h1>
-        <Keyboard keysPressed={keysPressed}/>
+        <Keyboard />
       </div>
-    </RecoilRoot>
   )
 }
 
