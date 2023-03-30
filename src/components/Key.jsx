@@ -1,23 +1,26 @@
 import { useState } from "react";
+import { useRecoilValue } from "recoil";
+import { keysPressedState } from "../App";
 
 export default function Key(props) {
   const [keydown, setKeydown] = useState(false);
+  const keysPressed = useRecoilValue(keysPressedState);
 
-  const { octave, note, freq, whiteKey, onMouseUp, onMouseDown } = props;
+  const { octave, note, freq, notePressed, noteReleased, whiteKey } = props;
 
-  const notePressed = (event) => {
+  const notePressedHandler = (event) => {
     //check for primary mouse button
     if (event.buttons & 1) {
       if (!keydown) {
-        onMouseDown(octave, note, freq);
+        notePressed(octave, note, freq);
         setKeydown(true);
       }
     }
   }
 
-  const noteReleased = () => {
+  const noteReleasedHandler = () => {
     if (keydown) {
-      onMouseUp(octave, note);
+      noteReleased(octave, note);
       setKeydown(false);
     }
   }
@@ -26,10 +29,10 @@ export default function Key(props) {
     //mouseOver and mouseLeave events allow for dragging over notes
     <div 
       className={whiteKey ? "key key-white" : "key key-black"}
-      onMouseDown={e => notePressed(e)}
-      onMouseOver={e => notePressed(e)}
-      onMouseUp={() => noteReleased()}
-      onMouseLeave={() => noteReleased()}>
+      onMouseDown={e => notePressedHandler(e)}
+      onMouseOver={e => notePressedHandler(e)}
+      onMouseUp={() => noteReleasedHandler()}
+      onMouseLeave={() => noteReleasedHandler()}>
     </div>
   )
 }

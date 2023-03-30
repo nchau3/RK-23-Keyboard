@@ -1,8 +1,10 @@
 export default function OctaveSwitch(props) {
+  const { octave, setOctave } = props;
+
   const changeOctave = (value) => {
-    const newValue = props.octave + value;
+    const newValue = octave + value;
     if (newValue > -3 && newValue < 3) {
-      props.setOctave(newValue);
+      setOctave(newValue);
     }
   }
 
@@ -12,7 +14,7 @@ export default function OctaveSwitch(props) {
         className="octave-button"
         onClick={() => changeOctave(-1)}
       ><i className="fa-solid fa-caret-left"></i></div>
-      <div className="octave-display">{props.octave}</div>
+      <div className="octave-display">{octave}</div>
       <div
         className="octave-button"
         onClick={() => changeOctave(1)}

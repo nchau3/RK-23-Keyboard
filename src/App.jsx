@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef } from 'react';
 import {
   atom,
   useRecoilState
@@ -11,7 +11,7 @@ import Keyboard from './components/Keyboard';
 import './styles/App.scss';
 
 //recoil state
-const keysPressedState = atom({
+export const keysPressedState = atom({
   key: 'keysPressedState',
   default: []
 });
