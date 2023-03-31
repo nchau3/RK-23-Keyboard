@@ -1,12 +1,29 @@
-import { useState } from "react";
-import { useRecoilValue } from "recoil";
-import { keysPressedState } from "../App";
+import { useEffect, useState } from "react";
 
 export default function Key(props) {
   const [keydown, setKeydown] = useState(false);
-  const keysPressed = useRecoilValue(keysPressedState);
 
-  const { octave, note, freq, notePressed, noteReleased, whiteKey } = props;
+  const { 
+    octave,
+    note,
+    freq, 
+    notePressed, 
+    noteReleased, 
+    input, 
+    whiteKey, 
+    keysPressed 
+  } = props;
+
+  useEffect(() => {
+    
+    if (!keydown && keysPressed.includes(input)) {
+      notePressed(octave, note, freq);
+      setKeydown(true);
+    } else if (keydown && !keysPressed.includes(input)) {
+      noteReleased(octave, note);
+      setKeydown(false);
+    }
+  }, [keysPressed])
 
   const notePressedHandler = (event) => {
     //check for primary mouse button
