@@ -4,89 +4,79 @@ import Key from "./Key";
 
 //hooks
 import useAudioContext from "../useAudioContext";
+import { useState, useRef, useEffect } from "react";
 
 //styles
 import "../styles/component-styles/keyboard.scss";
-import { useState } from "react";
 
 export default function Keyboard() {
-  const { audioContext, mainGainNode, oscList, sliders, changeSliders, noteFreq, voice, changeVoice } = useAudioContext();
-  const [octaveModifier, setOctaveModifier] = useState(0);
+  const { 
+    sliders,
+    changeSliders,
+    noteFreq,
+    notePressed,
+    noteReleased,
+    changeVoice,
+    octaveModifier,
+    setOctaveModifier
+   } = useAudioContext();
 
-  const convertOctave = (modifier) => {
-    switch (modifier) {
-      case -2:
-        return 0.25;
-      case -1:
-        return 0.5;
-      case 0:
-        return 1;
-      case 1:
-        return 2;
-      case 2:
-        return 4;
-    }
+  const [keysPressed, setKeysPressed] = useState([]);
+
+  const handleKeyDown = (event) => {
+    const update = [...keysPressed, (event.key).toLowerCase()];
+    setKeysPressed(update);
   }
 
-  const playTone = (freq) => {
-    const voiceNode = audioContext.createChannelMerger();
-    const actualFreq = freq * convertOctave(octaveModifier);
-
-    for (let i = 1; i <= voice.harmonics.length; i++) {
-      //stack oscillators according to specified harmonics
-      const osc = audioContext.createOscillator();
-      osc.type = voice.type;
-
-      //multiples of fundamental frequency
-      osc.frequency.value = actualFreq * i;
-
-      //set gain of each harmonic
-      const oscGainNode = audioContext.createGain();
-      oscGainNode.gain.value = voice.harmonics[i - 1];
-
-      osc.connect(oscGainNode);
-      osc.start();
-      oscGainNode.connect(voiceNode);
-    }
-    voiceNode.connect(mainGainNode);
-
-    return voiceNode;
+  const handleKeyUp = (event) => {
+    const update = keysPressed.filter(key => key !== (event.key).toLowerCase());
+    setKeysPressed(update);
   }
 
-  //start and store oscillator so it can be indexed/stopped on key release
-  const notePressed = (octave, note, freq) => {
-    const octaveIndex = Number(octave);
-    oscList[octaveIndex][note] = playTone(freq);
-  }
+  const ref = useRef(null);
 
-  //retrieve active oscillator, stop playback and delete
-  const noteReleased = (octave, note) => {
-    const octaveIndex = Number(octave);
-    oscList[octaveIndex][note].disconnect();
-    delete oscList[octave][note];
-  }
+  useEffect(() => {
+    ref.current.focus();
+  }, []);
+
+  let i = -1;
 
   const pianoKeys = noteFreq.map((keys, index) => {
     const keyList = Object.entries(keys);
-
+    const keyboardInputs = ['a', 'w', 's', 'd', 'r', 'f', 't', 'g', 'h', 'u', 'j', 'i', 'k', 'o', 'l', ';'];
+    
     return keyList.map((key) => {
+      i++;
       return (
         <Key 
-          key={key[0]}
+          key={`${key[0]}${key[1]}`}
           note={key[0]}
           octave={index}
           freq={key[1]}
+          notePressed={notePressed}
+          noteReleased={noteReleased}
+          keyDown={handleKeyDown}
+          keyUp={handleKeyUp}
+          input={keyboardInputs[i]}
+          keysPressed={keysPressed}
           whiteKey={key[0].length === 2 ? false : true}
-          onMouseDown={notePressed}
-          onMouseUp={noteReleased}
         />
-      )
+        )
+      })
     })
-  })
 
   return (
-    <div className="keyboard">
-      <Controls sliders={sliders} onChange={changeSliders} onSelect={changeVoice} octave={octaveModifier} setOctave={setOctaveModifier}/>
+    <div className="keyboard"
+      ref={ref}
+      tabIndex={-1}
+      onKeyDown={e => handleKeyDown(e)}
+      onKeyUp={e => handleKeyUp(e)}>
+      <Controls 
+        sliders={sliders} 
+        onChange={changeSliders}
+        onSelect={changeVoice}
+        octave={octaveModifier}
+        setOctave={setOctaveModifier} />
       <div className="keys-container">
         {pianoKeys}
       </div>
