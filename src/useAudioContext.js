@@ -30,8 +30,9 @@ export default function useAudioContext() {
 
   const [octaveModifier, setOctaveModifier] = useState(0);
 
-  mainVolumeNode.gain.value = sliders.masterVolume;
-  mainGainNode.gain.value = sliders.masterGain;
+  //gain nodes capped at half value to prevent distortion
+  mainVolumeNode.gain.value = sliders.masterVolume / 3;
+  mainGainNode.gain.value = sliders.masterGain / 2;
   
   const changeSliders = (slider, newValue) => {
     setSliders(prev => ({...prev, [slider]: newValue}));
