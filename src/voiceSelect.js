@@ -9,6 +9,6 @@ export const voice2 = {
 };
 
 export const voice3 = {
-  type: "triangle",
+  type: "sine",
   harmonics: [1, 0.7, 1, 0.1, 0.7, 0.05, 0.001, 0.002, 0.001, 0.001, 0.001]
 };
