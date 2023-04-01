@@ -1,6 +1,6 @@
 export const voice1 = {
   type: "sine",
-  harmonics: [1, 1, 0.6, 1.3, 0.025, 0.045, 0.035]
+  harmonics: [1, 1, 0.6, 1.3, 0.02, 0.04, 0.03]
 };
 
 export const voice2 = {
@@ -10,5 +10,5 @@ export const voice2 = {
 
 export const voice3 = {
   type: "sine",
-  harmonics: [1, 0.7, 1, 0.1, 0.7, 0.05, 0.001, 0.002, 0.001, 0.001, 0.001]
+  harmonics: [1.7, 1.4, 0.07, 0.05, 0.003, 0.1, 0.001, 0.002, 0.01, 0.01, 0.001, 0.002, 0.006]
 };
