@@ -24,10 +24,6 @@
   input {
     display: none;
   }
-
-  &:active {
-    filter: invert(0.10);
-  }
 }
 
 .key-white {
@@ -50,4 +46,9 @@
   margin: 0 -45px 0 0;
   transform: translateX(-55%);
   z-index: 2;
+}
+
+.keydown {
+  filter: invert(0.2);
+
 }

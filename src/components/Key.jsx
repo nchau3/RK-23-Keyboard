@@ -14,6 +14,8 @@ export default function Key(props) {
     keysPressed 
   } = props;
 
+  const keyClassNames = `${whiteKey ? "key key-white" : "key key-black"} ${keydown ? "keydown" : ""}`;
+
   useEffect(() => {
     
     if (!keydown && keysPressed.includes(input)) {
@@ -45,7 +47,7 @@ export default function Key(props) {
   return (
     //mouseOver and mouseLeave events allow for dragging over notes
     <div 
-      className={whiteKey ? "key key-white" : "key key-black"}
+      className={keyClassNames}
       onMouseDown={e => notePressedHandler(e)}
       onMouseOver={e => notePressedHandler(e)}
       onMouseUp={() => noteReleasedHandler()}
