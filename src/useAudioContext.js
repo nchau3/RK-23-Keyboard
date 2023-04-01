@@ -84,14 +84,19 @@ export default function useAudioContext() {
   //start and store oscillator so it can be indexed/stopped on key release
   const notePressed = (octave, note, freq) => {
     const octaveIndex = Number(octave);
-    oscList[octaveIndex][note] = playTone(freq);
+    //prevents duplicates
+    if (!oscList[octaveIndex][note]) {
+      oscList[octaveIndex][note] = playTone(freq);
+    }
   }
 
   //retrieve active oscillator, stop playback and delete
   const noteReleased = (octave, note) => {
     const octaveIndex = Number(octave);
-    oscList[octaveIndex][note].disconnect();
-    delete oscList[octave][note];
+    if (oscList[octaveIndex][note]) {
+      oscList[octaveIndex][note].disconnect();
+      delete oscList[octave][note];
+    }
   }
 
   return { 
