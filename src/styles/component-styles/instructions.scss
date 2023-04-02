@@ -1,0 +1,40 @@
+.instructions {
+  display: flex;
+  flex-direction: column;
+
+  margin-top: 1rem;
+}
+
+.computer-key-row {
+  display: flex;
+
+}
+
+.row-1 {
+  position: relative;
+  right: 10px;
+}
+
+.row-3 {
+  position: relative;
+  left: 10px;
+}
+
+.computer-key {
+  height: 45px;
+  width: 40px;
+  border: solid 1px black;
+  background-color: grey;
+  border-radius: 5px;
+  margin: 1px;
+}
+
+.black-key {
+  background-color: black;
+  border-color: white;
+}
+
+.white-key {
+  color: black;
+  background-color: white;
+}
