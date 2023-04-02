@@ -38,6 +38,7 @@ export default function Instructions() {
 
   return (
     <div className="instructions">
+      <h3>KEYBOARD CONTROLS</h3>
       {getQwertyRows()}
     </div>
   )
