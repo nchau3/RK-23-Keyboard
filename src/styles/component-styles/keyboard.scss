@@ -1,7 +1,8 @@
 .keyboard {
   height: 600px;
   width: 850px;
-  border: solid white;
+  background-color: #5c5c5c;
+  border: solid rgb(0, 0, 0);
   display: flex;
   flex-direction: column;
   align-items: flex-end;

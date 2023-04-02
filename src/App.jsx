@@ -1,4 +1,5 @@
 //components
+import Instructions from './components/Instructions';
 import Keyboard from './components/Keyboard';
 
 //styles
@@ -11,6 +12,7 @@ function App() {
       id="App">
         <h1>KEYBOARD</h1>
         <Keyboard />
+        <Instructions />
       </div>
   )
 }
