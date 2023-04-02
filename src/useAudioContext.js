@@ -4,10 +4,8 @@ import * as voiceSelect from "./voiceSelect";
 
 //context and main nodes declared outside of component
 const audioContext = new AudioContext();
-const mainVolumeNode = audioContext.createGain();
 const mainGainNode = audioContext.createGain();
-mainVolumeNode.connect(audioContext.destination);
-mainGainNode.connect(mainVolumeNode);
+mainGainNode.connect(audioContext.destination);
 
 //note frequencies array
 const noteFreq = createNoteTable();
@@ -21,8 +19,8 @@ for (let i = 0; i < 9; i++) {
 
 //manage state of all audio settings (gain, voice select, filters)
 export default function useAudioContext() {
+  //sliders object leaves room to implement other levels (EQ, filters)
   const [sliders, setSliders] = useState({
-    masterVolume: 0.5,
     masterGain: 0.5
   });
 
@@ -30,9 +28,8 @@ export default function useAudioContext() {
 
   const [octaveModifier, setOctaveModifier] = useState(0);
 
-  //gain nodes capped at half value to prevent distortion
-  mainVolumeNode.gain.value = sliders.masterVolume / 3;
-  mainGainNode.gain.value = sliders.masterGain / 2;
+  //gain node capped heavily to ease distortion
+  mainGainNode.gain.value = sliders.masterGain / 6;
   
   const changeSliders = (slider, newValue) => {
     setSliders(prev => ({...prev, [slider]: newValue}));
@@ -77,8 +74,8 @@ export default function useAudioContext() {
       osc.start();
       oscGainNode.connect(voiceNode);
     }
-    voiceNode.connect(mainGainNode);
 
+    voiceNode.connect(mainGainNode);
     return voiceNode;
   };
 
