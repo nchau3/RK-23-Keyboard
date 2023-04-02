@@ -1,3 +1,5 @@
+//opted for A3 to C5 as default, octaves are calculated upon switching
+
 export default function createNoteTable() {
   const noteFreq = [];
   for (let i = 0; i < 9; i++) {
