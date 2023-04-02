@@ -1,6 +1,8 @@
 .instructions {
   display: flex;
   flex-direction: column;
+  padding: 1rem;
+  border: solid 1px;
 
   margin-top: 1rem;
 }
@@ -21,17 +23,20 @@
 }
 
 .computer-key {
-  height: 45px;
-  width: 40px;
+  height: 30px;
+  width: 25px;
   border: solid 1px black;
   background-color: grey;
   border-radius: 5px;
   margin: 1px;
+  border-left: 5px solid rgb(37, 37, 37);
+  border-top: 5px solid rgb(37, 37, 37);
+  border-right: 8px solid rgb(37, 37, 37);
+  border-bottom: 10px solid rgb(37, 37, 37);
 }
 
 .black-key {
   background-color: black;
-  border-color: white;
 }
 
 .white-key {
