@@ -11,7 +11,7 @@ export default function Key(props) {
     noteReleased, 
     input, 
     whiteKey, 
-    keysPressed 
+    keysPressed,
   } = props;
 
   const keyClassNames = `${whiteKey ? "key key-white" : "key key-black"} ${keydown ? "keydown" : ""}`;
@@ -29,7 +29,7 @@ export default function Key(props) {
 
   const notePressedHandler = (event) => {
     //check for primary mouse button
-    if (event.buttons & 1) {
+    if ((event.buttons & 1) && window.outerWidth > 480) {
       if (!keydown) {
         notePressed(octave, note, freq);
         setKeydown(true);
@@ -44,6 +44,24 @@ export default function Key(props) {
     }
   }
 
+  const touchStartHandler = () => {
+    if (window.outerWidth < 480) {
+      if (!keydown) {
+        notePressed(octave, note, freq);
+        setKeydown(true);
+      }
+    }
+  }
+
+  const touchEndHandler = () => {
+    if (window.outerWidth < 480) {
+      if (keydown) {
+        noteReleased(octave, note);
+        setKeydown(false);
+      }
+    }
+  }
+
   return (
     //mouseOver and mouseLeave events allow for dragging over notes
     <div 
@@ -51,7 +69,9 @@ export default function Key(props) {
       onMouseDown={e => notePressedHandler(e)}
       onMouseOver={e => notePressedHandler(e)}
       onMouseUp={() => noteReleasedHandler()}
-      onMouseLeave={() => noteReleasedHandler()}>
+      onMouseLeave={() => noteReleasedHandler()}
+      onTouchStart={() => touchStartHandler()}
+      onTouchEnd={() => touchEndHandler()}>
     </div>
   )
 }
