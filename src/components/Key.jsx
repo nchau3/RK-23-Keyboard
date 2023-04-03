@@ -32,7 +32,7 @@ export default function Key(props) {
 
   const notePressedHandler = (event) => {
     //check for primary mouse button
-    if ((event.buttons & 1) && width > 480) {
+    if ((event.buttons & 1) && width > 850) {
       if (!keydown) {
         notePressed(octave, note, freq);
         setKeydown(true);
