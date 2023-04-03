@@ -26,7 +26,7 @@ export default function Instructions() {
 
     return computerKeyboard.map(row => {
       return (
-      <ul className={`computer-key-row row-${row[0].row}`}>
+      <ul key={`row-${row[0].row}`} className={`computer-key-row row-${row[0].row}`}>
         {row.map(key => {
         return (
           <ComputerKey key={key.key} blackKey={key.blackKey} whiteKey={key.whiteKey} />
