@@ -40,7 +40,6 @@ export default function Instructions() {
     <div className="instructions">
       <h3>KEYBOARD CONTROLS</h3>
       {getQwertyRows()}
-      <h4>Try landscape for Mobile devices.</h4>
     </div>
   )
 }

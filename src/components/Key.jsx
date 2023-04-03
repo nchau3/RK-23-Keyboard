@@ -32,7 +32,7 @@ export default function Key(props) {
 
   const notePressedHandler = (event) => {
     //check for primary mouse button
-    if ((event.buttons & 1) && width > 850) {
+    if ((event.buttons & 1) && width > 800) {
       if (!keydown) {
         notePressed(octave, note, freq);
         setKeydown(true);
@@ -48,7 +48,7 @@ export default function Key(props) {
   }
 
   const touchStartHandler = () => {
-    if ((!isLandScape && width < 480) || (isLandScape && width < 780)) {
+    if ((!isLandScape && width < 480) || (isLandScape && width < 800)) {
       if (!keydown) {
         notePressed(octave, note, freq);
         setKeydown(true);
@@ -57,7 +57,7 @@ export default function Key(props) {
   }
 
   const touchEndHandler = () => {
-    if ((!isLandScape && width < 480) || (isLandScape && width < 780)) {
+    if ((!isLandScape && width < 480) || (isLandScape && width < 800)) {
       if (keydown) {
         noteReleased(octave, note);
         setKeydown(false);
