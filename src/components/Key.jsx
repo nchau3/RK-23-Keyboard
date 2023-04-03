@@ -12,7 +12,6 @@ export default function Key(props) {
     input, 
     whiteKey, 
     keysPressed,
-    touchStart
   } = props;
 
   const keyClassNames = `${whiteKey ? "key key-white" : "key key-black"} ${keydown ? "keydown" : ""}`;
