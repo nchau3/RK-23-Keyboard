@@ -16,8 +16,11 @@ export default function Key(props) {
 
   const keyClassNames = `${whiteKey ? "key key-white" : "key key-black"} ${keydown ? "keydown" : ""}`;
 
+  const width = window.outerWidth;
+  const height = window.outerHeight;
+  const isLandScape = width > height ? true : false;
+
   useEffect(() => {
-    
     if (!keydown && keysPressed.includes(input)) {
       notePressed(octave, note, freq);
       setKeydown(true);
@@ -29,7 +32,7 @@ export default function Key(props) {
 
   const notePressedHandler = (event) => {
     //check for primary mouse button
-    if ((event.buttons & 1) && window.outerWidth > 480) {
+    if ((event.buttons & 1) && width > 480) {
       if (!keydown) {
         notePressed(octave, note, freq);
         setKeydown(true);
@@ -45,7 +48,7 @@ export default function Key(props) {
   }
 
   const touchStartHandler = () => {
-    if (window.outerWidth < 480) {
+    if ((!isLandScape && width < 480) || (isLandScape && width < 780)) {
       if (!keydown) {
         notePressed(octave, note, freq);
         setKeydown(true);
@@ -54,7 +57,7 @@ export default function Key(props) {
   }
 
   const touchEndHandler = () => {
-    if (window.outerWidth < 480) {
+    if ((!isLandScape && width < 480) || (isLandScape && width < 780)) {
       if (keydown) {
         noteReleased(octave, note);
         setKeydown(false);
