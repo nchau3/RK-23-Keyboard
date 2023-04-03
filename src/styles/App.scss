@@ -17,3 +17,9 @@
     outline: none;
   }
 }
+
+@media (max-width: 480px) {
+  #App {
+    transform: rotate(90deg);
+  }
+}
