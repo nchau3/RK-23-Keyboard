@@ -1,3 +1,5 @@
+@use "./variables.scss" as variables;
+
 * {
   touch-action: none;
 }
@@ -10,7 +12,7 @@
   font-weight: 400;
 
   color: black;
-  background: linear-gradient(#000000, #001b3d);
+  background: linear-gradient(#000000, variables.$background-blue);
 }
 
 body {

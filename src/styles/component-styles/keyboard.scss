@@ -1,8 +1,9 @@
+@use "../variables.scss";
+
 .keyboard {
   height: 500px;
   width: 800px;
-  background-color: #242424;
-  background-image: url("https://www.transparenttextures.com/patterns/subtle-dark-vertical.png");
+  background-color: variables.$keyboard-color;
   border-radius: 5px;
   border-top-right-radius: 20px;
   border-top-left-radius: 20px;
