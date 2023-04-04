@@ -27,19 +27,24 @@
 }
 
 .voice-select {
+  @include display-bezel(5px);
+
   display: flex;
+  justify-content: space-around;
+  align-items: center;
   height: 4rem;
   width: 55%;
-  justify-content: space-around;
   background-color: variables.$screen-color;
+  padding: 0 .5em;
   
   li {
+    height: fit-content;
     color: variables.$display-color;
     font-weight: bold;
+    padding: .35em;
     border: 2px solid;
     border-radius: 3px;
-    user-select: none;
-    filter: invert(.35);
+    filter: invert(.45);
     
     &:hover {
       opacity: 0.9;
@@ -68,9 +73,10 @@
 }
 
 .octave-display {
+  @include display-bezel(5px);
+
   color: variables.$display-color;
   background-color: rgb(0, 0, 0);
-  border-radius: 3px;
   height: 4rem;
   width: 4rem;
 }
