@@ -19,7 +19,24 @@
 }
 
 @media (max-width: 480px) {
+  :root {
+    padding: 40vw;
+  }
+
   #App {
     transform: rotate(90deg);
+
+    h1 {
+      display: none;
+    }
+  }
+
+  .instructions {
+    display: none;
+  }
+
+  .keyboard {
+    height: 90vw;
+    width: 90vh;
   }
 }
