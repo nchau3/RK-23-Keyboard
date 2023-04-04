@@ -2,6 +2,7 @@
   height: 500px;
   width: 800px;
   background-color: #2e2e2e;
+  background-image: url("https://www.transparenttextures.com/patterns/subtle-dark-vertical.png");
   border-radius: 5px;
   border-top-right-radius: 20px;
   border-top-left-radius: 20px;
@@ -31,13 +32,14 @@
 }
 
 .key-white {
+  height: 100%;
+  background-color: white;
+  z-index: 1;
   border-left: solid 1px;
   border-bottom: solid 1px;
   border-bottom-left-radius: 5px;
   border-bottom-right-radius: 5px;
-  background-color: white;
-  height: 100%;
-  z-index: 1;
+  box-shadow: -1px 0 5px grey;
 }
 
 .key-black {
