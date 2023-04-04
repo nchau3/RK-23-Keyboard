@@ -11,6 +11,14 @@
 
   h1 {
     font-size: 2.5em;
+    color: white;
+    text-shadow:
+    0 0 1px #fff,
+    0 0 3px #6dafff,
+    0 0 5px #6dafff,
+    0 0 10px #6dafff,
+    0 0 14px #6dafff,
+    0 0 17px #6dafff,
   }
 
   &:focus {
@@ -18,25 +26,3 @@
   }
 }
 
-@media (max-width: 480px) {
-  :root {
-    margin: 28% 0;
-  }
-
-  #App {
-    transform: rotate(90deg);
-
-    h1 {
-      display: none;
-    }
-  }
-
-  .instructions {
-    display: none;
-  }
-
-  .keyboard {
-    height: 90vw;
-    width: 85vh;
-  }
-}

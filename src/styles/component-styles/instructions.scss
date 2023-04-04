@@ -4,11 +4,13 @@
   }
 
   50% {
-    opacity: 0.9;
+    opacity: 0.95;
+    transform: translateY(-1px)
   }
 
   100% {
     opacity: 1;
+    transform: translateY(0);
   }
 }
 
@@ -21,12 +23,6 @@
   border-radius: 3px;
   box-shadow: 3px 3px 3px rgb(0, 0, 0);
 
-
-  animation-name: shimmer;
-  animation-duration: 1.3s;
-  animation-iteration-count: infinite;
-  animation-timing-function: ease-in-out;
-
   h3 {
     padding-bottom: .5rem;
   }
@@ -34,7 +30,6 @@
 
 .computer-key-row {
   display: flex;
-
 }
 
 .row-1 {
@@ -53,7 +48,7 @@
   border: solid 1px black;
   background-color: grey;
   border-radius: 5px;
-  margin: 1px;
+  margin: 2px;
   border-left: 4px solid rgb(90, 90, 90);
   border-top: 4px solid rgb(90, 90, 90);
   border-right: 6px solid rgb(54, 54, 54);
@@ -63,9 +58,19 @@
 .black-key {
   background-color: black;
   color: white;
+
+  animation-name: shimmer;
+  animation-duration: 1s;
+  animation-iteration-count: infinite;
+  animation-timing-function: ease-in-out;
 }
 
 .white-key {
   color: black;
   background-color: white;
+
+  animation-name: shimmer;
+  animation-duration: 1s;
+  animation-iteration-count: infinite;
+  animation-timing-function: ease-in-out;
 }
