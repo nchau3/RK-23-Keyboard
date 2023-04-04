@@ -1,0 +1,10 @@
+@mixin glow($color) {
+  color: white;
+  text-shadow:
+  0 0 1px #fff,
+  0 0 3px $color,
+  0 0 5px $color,
+  0 0 10px $color,
+  0 0 14px $color,
+  0 0 17px #6dafff,
+}
