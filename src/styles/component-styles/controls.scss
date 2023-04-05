@@ -26,6 +26,16 @@
   }
 }
 
+.voice-select-container {
+  width: 55%;
+
+  label {
+    margin-left: .5em;
+    margin-bottom: .25em;
+    float: left;
+  }
+}
+
 .voice-select {
   @include display-bezel(5px);
 
@@ -33,7 +43,7 @@
   justify-content: space-around;
   align-items: center;
   height: 4rem;
-  width: 55%;
+  width: 100%;
   background-color: variables.$screen-color;
   padding: 0 .5em;
   
@@ -45,6 +55,8 @@
     border: 2px solid;
     border-radius: 3px;
     filter: invert(.45);
+
+    transition: filter 0.15s;
     
     &:hover {
       opacity: 0.9;
@@ -62,6 +74,15 @@
   align-items: center;
   height: 4rem;
   width: 100%;
+}
+
+.octave-switch-container {
+  display: flex;
+  flex-direction: column;
+
+  label {
+    margin-bottom: .5em;
+  }
 }
 
 .octave-switch {

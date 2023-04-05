@@ -9,16 +9,19 @@ export default function OctaveSwitch(props) {
   }
 
   return (
-    <div className="octave-switch">
-      <div 
-        className="octave-button"
-        onClick={() => changeOctave(-1)}
-      ><i className="fa-solid fa-caret-left"></i></div>
-      <div className="octave-display">{octave}</div>
-      <div
-        className="octave-button"
-        onClick={() => changeOctave(1)}
-      ><i className="fa-solid fa-caret-right"></i></div>
+    <div className="octave-switch-container">
+      <label for="octave-switch">OCTAVE</label>
+      <div className="octave-switch">
+        <div 
+          className="octave-button"
+          onClick={() => changeOctave(-1)}
+        ><i className="fa-solid fa-caret-left"></i></div>
+        <div className="octave-display">{octave}</div>
+        <div
+          className="octave-button"
+          onClick={() => changeOctave(1)}
+        ><i className="fa-solid fa-caret-right"></i></div>
+      </div>
     </div>
   )
 }
