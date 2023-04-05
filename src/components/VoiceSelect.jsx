@@ -10,7 +10,7 @@ export default function VoiceSelect(props) {
 
   return (
     <div className="voice-select-container">
-      <label for="voice-select">VOICE SELECT</label>
+      <label htmlFor="voice-select">VOICE SELECT</label>
       <ul className="voice-select">
         <li 
           className={selected === "voice1" ? "selected" : ""}

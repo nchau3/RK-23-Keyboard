@@ -4,24 +4,14 @@ import VoiceSelect from "./VoiceSelect";
 
 //styles
 import "../styles/component-styles/controls.scss"
+import Slider from "./Slider";
 
 export default function Controls(props) {
   const { masterGain } = props.sliders;
 
   return (
     <div className="controls">
-      <div className="slider-container">
-        <span>Master Gain:</span>
-        <input
-          type="range"
-          id="master_gain"
-          min="0.0"
-          max="1.0"
-          step="0.01"
-          value={`${masterGain}`}
-          name="master_gain" 
-          onChange={e => props.onChange("masterGain", e.target.value)}/>
-      </div>
+      <Slider gain={masterGain} onChange={props.onChange} />
       <span className="lower-bar">
         <VoiceSelect onSelect={props.onSelect} />
         <OctaveSwitch octave={props.octave} setOctave={props.setOctave}/>

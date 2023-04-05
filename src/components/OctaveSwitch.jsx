@@ -10,7 +10,7 @@ export default function OctaveSwitch(props) {
 
   return (
     <div className="octave-switch-container">
-      <label for="octave-switch">OCTAVE</label>
+      <label htmlFor="octave-switch">OCTAVE</label>
       <div className="octave-switch">
         <div 
           className="octave-button"

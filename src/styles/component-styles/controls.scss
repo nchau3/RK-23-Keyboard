@@ -4,52 +4,74 @@
 .controls {
   display: flex;
   flex-direction: column;
-  height: 70%;
-  width: 100%;
+  justify-content: space-between;
+
+
+  height: 40%;
+  width: 90%;
 }
 
 .slider-container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
   width: 100%;
-  height: 50%;
+
+  label {
+    margin: .5em
+  }
+}
+
+.slider {
+  @include display;
+
   display: flex;
   justify-content: center;
+
+  height: 4rem;
+  width: 100%;
+}
+
+.slider-bar-container {
+  display: flex;
   align-items: center;
+  width: 98%;
+  height: 100%;
+}
 
-  span {
-    font-size: 1.5em;
-    padding-right: 15px;
-  }
+.slider-bar {
+  height: 65%;
+  width: 2%;
+  margin-right: 3px;
+  background-color: variables.$display-color;
+  filter: invert(.45);
+}
 
-  input {
-    width: 60%;
-    height: 50%;
-  }
+.active {
+  filter: none;
 }
 
 .voice-select-container {
   width: 55%;
 
   label {
-    margin-left: .5em;
-    margin-bottom: .25em;
     float: left;
+    margin: .5em;
   }
 }
 
 .voice-select {
-  @include display-bezel(5px);
+  @include display;
 
   display: flex;
   justify-content: space-around;
   align-items: center;
   height: 4rem;
   width: 100%;
-  background-color: variables.$screen-color;
   padding: 0 .5em;
   
   li {
     height: fit-content;
-    color: variables.$display-color;
     font-weight: bold;
     padding: .35em;
     border: 2px solid;
@@ -70,7 +92,7 @@
 
 .lower-bar {
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
   align-items: center;
   height: 4rem;
   width: 100%;
@@ -81,7 +103,7 @@
   flex-direction: column;
 
   label {
-    margin-bottom: .5em;
+    margin: .5em;
   }
 }
 
@@ -94,10 +116,8 @@
 }
 
 .octave-display {
-  @include display-bezel(5px);
+  @include display;
 
-  color: variables.$display-color;
-  background-color: rgb(0, 0, 0);
   height: 4rem;
   width: 4rem;
 }
