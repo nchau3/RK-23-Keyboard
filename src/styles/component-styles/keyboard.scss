@@ -1,22 +1,27 @@
+@use "../variables.scss";
+@import "../mixins.scss";
+
 .keyboard {
-  height: 500px;
-  width: 800px;
-  background-color: #2e2e2e;
-  border-radius: 5px;
-  border-top-right-radius: 20px;
-  border-top-left-radius: 20px;
-  border: solid rgb(0, 0, 0);
   display: flex;
   flex-direction: column;
-  align-items: flex-end;
+  align-items: center;
+  justify-content: space-between;
+  height: 500px;
+  width: 800px;
+  color: white;
+  background-color: variables.$keyboard-color;
+  background: linear-gradient(45deg, black, variables.$keyboard-color);
+  border: solid darken(variables.$keyboard-color, 5%);
+  border-width: 0 1.5rem 1.5rem 1.5rem;
+  border-radius: 5px;
+  box-shadow: 0px 0px 15px rgb(255, 255, 255);
 }
 
 .keys-container {
   display: flex;
-  height: 70%;
+  height: 50%;
   width: 100%;
   border-top: solid 1px white;
-  position: relative;
 }
 
 .key {
@@ -31,13 +36,14 @@
 }
 
 .key-white {
+  height: 100%;
+  background-color: white;
+  z-index: 1;
   border-left: solid 1px;
   border-bottom: solid 1px;
   border-bottom-left-radius: 5px;
   border-bottom-right-radius: 5px;
-  background-color: white;
-  height: 100%;
-  z-index: 1;
+  box-shadow: -1px 0 5px grey;
 }
 
 .key-black {
@@ -58,7 +64,10 @@
   z-index: 2;
 }
 
-.keydown {
-  filter: invert(0.2);
+.keydown.key-black {
+  box-shadow: 0px 5px 8px 8px variables.$keydown-color;
+}
 
+.keydown.key-white {
+  background-color: variables.$keydown-color;
 }

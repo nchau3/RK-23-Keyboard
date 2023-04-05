@@ -4,6 +4,7 @@ import Keyboard from './components/Keyboard';
 
 //styles
 import './styles/App.scss';
+import './styles/mobile.scss';
 
 function App() {
   return (

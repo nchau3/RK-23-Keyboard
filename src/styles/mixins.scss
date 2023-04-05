@@ -1,0 +1,27 @@
+@use "./variables.scss";
+@use "sass:color";
+
+@mixin glow($color) {
+  color: white;
+  text-shadow:
+  0 0 1px #fff,
+  0 0 3px $color,
+  0 0 5px $color,
+  0 0 10px $color,
+  0 0 14px $color,
+  0 0 17px $color,
+}
+
+@mixin display-bezel {
+  border-left: 5px solid #111111;
+  border-top: 5px solid #111111;
+  border-right: 5px solid #181818;
+  border-bottom: 5px solid #181818;
+}
+
+@mixin display {
+  @include display-bezel;
+
+  color: variables.$display-color;
+  background-color: rgb(0, 0, 0);
+}

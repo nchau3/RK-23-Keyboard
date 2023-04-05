@@ -1,14 +1,18 @@
+@use "./variables.scss" as variables;
+
 * {
   touch-action: none;
 }
 
 :root {
+  height: 100%;
+  width: 100%;
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
 
   color: black;
-  background-color: #90c4ff;
+  background: linear-gradient(#000000, variables.$background-blue);
 }
 
 body {

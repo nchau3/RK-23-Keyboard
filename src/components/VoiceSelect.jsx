@@ -9,22 +9,25 @@ export default function VoiceSelect(props) {
   }
 
   return (
-    <ul className="voice-select">
-      <li 
-        className={selected === "voice1" ? "selected" : ""}
-        onClick={() => changeVoice("voice1")}
-        >
-          VOICE 1</li>
+    <div className="voice-select-container">
+      <label htmlFor="voice-select">VOICE SELECT</label>
+      <ul className="voice-select">
         <li 
-        className={selected === "voice2" ? "selected" : ""}
-        onClick={() => changeVoice("voice2")}
-        >
-          VOICE 2</li>
-        <li 
-        className={selected === "voice3" ? "selected" : ""}
-        onClick={() => changeVoice("voice3")}
-        >
-          VOICE 3</li>
-    </ul>
+          className={selected === "voice1" ? "selected" : ""}
+          onClick={() => changeVoice("voice1")}
+          >
+            VOICE 1</li>
+          <li 
+          className={selected === "voice2" ? "selected" : ""}
+          onClick={() => changeVoice("voice2")}
+          >
+            VOICE 2</li>
+          <li 
+          className={selected === "voice3" ? "selected" : ""}
+          onClick={() => changeVoice("voice3")}
+          >
+            VOICE 3</li>
+      </ul>
+    </div>
   )
 }

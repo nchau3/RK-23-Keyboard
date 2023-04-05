@@ -1,16 +1,21 @@
+@use "./variables.scss";
+@import "./mixins.scss";
+
 #App {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   margin: 0 auto;
-  padding: 2rem;
   text-align: center;
   font-family: 'Orbitron', sans-serif;
   user-select: none;
 
   h1 {
+    @include glow(variables.$header-color);
+
     font-size: 2.5em;
+    padding: 1.25rem 0;
   }
 
   &:focus {
@@ -18,25 +23,3 @@
   }
 }
 
-@media (max-width: 480px) {
-  :root {
-    margin: 28% 0;
-  }
-
-  #App {
-    transform: rotate(90deg);
-
-    h1 {
-      display: none;
-    }
-  }
-
-  .instructions {
-    display: none;
-  }
-
-  .keyboard {
-    height: 90vw;
-    width: 85vh;
-  }
-}
