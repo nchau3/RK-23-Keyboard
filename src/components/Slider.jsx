@@ -16,7 +16,7 @@ export default function Slider(props) {
         <SliderBar
           key={`slider-${bar}`}
           value={bar}
-          onClick={onChange}
+          onChange={onChange}
           active={bar <= gainMeter ? true : false} />
       )
     })

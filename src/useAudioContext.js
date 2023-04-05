@@ -28,7 +28,7 @@ export default function useAudioContext() {
 
   const [octaveModifier, setOctaveModifier] = useState(0);
 
-  //gain node capped heavily to ease distortion
+  //gain node capped heavily to ease distortion and improve sound quality
   mainGainNode.gain.value = sliders.masterGain / 6;
   
   const changeSliders = (slider, newValue) => {
