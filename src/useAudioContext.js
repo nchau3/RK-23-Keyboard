@@ -76,10 +76,12 @@ export default function useAudioContext() {
   };
 
   const playTone = (freq) => {
-    const voiceNode = audioContext.createChannelMerger();
+    const harmonicsCount = voice.harmonics.length;
+
+    const voiceNode = audioContext.createChannelMerger(harmonicsCount);
     const actualFreq = freq * convertOctave(octaveModifier);
 
-    for (let i = 1; i <= voice.harmonics.length; i++) {
+    for (let i = 1; i <= harmonicsCount; i++) {
       //stack oscillators according to specified harmonics
       const osc = audioContext.createOscillator();
       osc.type = voice.type;
@@ -104,6 +106,7 @@ export default function useAudioContext() {
 
     // We connect the voice gain node to the main gain node
     voiceGainNode.connect(mainGainNode);
+    console.log(voiceNode.numberOfInputs)
 
     return { voiceNode, voiceGainNode };
   };
