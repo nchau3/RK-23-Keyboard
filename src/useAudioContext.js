@@ -122,7 +122,11 @@ export default function useAudioContext() {
     const oldestPlayedNode = oscList[octaveIndex][note].shift();
     if (oldestPlayedNode) {
       const decayTiming = 0.3;
-      actuallySetTargetAtTime(oldestPlayedNode.voiceGainNode.gain, decayTiming);
+      actuallySetTargetAtTime(
+        oldestPlayedNode.voiceGainNode.gain,
+        0,
+        decayTiming
+      );
       // delay to allow for decay to complete
       await delayInSeconds(decayTiming);
     }
