@@ -34,7 +34,12 @@ const TWELVE_TONE_NOTE_NAMES = [
 function getNoteFrequency(noteName, octave) {
 	const noteIndex = TWELVE_TONE_NOTE_NAMES.indexOf(noteName);
 	const noteNumber = noteIndex + (octave + 1) * 12;
-	return 440 * Math.pow(2, (noteNumber - 69) / 12);
+	// With the above noteNumber logic, A440 will be the 69th note.
+	// We calculate the frequency of the incoming note using A440 as
+	// the basis, using even tempered tuning.
+	// (I don't really understand this fully, but it seems to work.)
+	const noteDistanceFromA440 = noteNumber - 69;
+	return 440 * Math.pow(2, noteDistanceFromA440 / 12);
 }
 
 /**
