@@ -1,10 +1,4 @@
-//each voice has a wave type (sine, triangle, square, or sawtooth)
-
 //each voice has an array of values which represent the relative gain of each overtone above the fundamental frequency
-
-class Voice {
-  constructor()
-}
 
 export const voice1 = {
   harmonics: [1, 1, 0.6, 1.3, 0.02, 0.04, 0.03]
