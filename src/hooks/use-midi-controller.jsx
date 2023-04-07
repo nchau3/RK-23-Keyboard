@@ -112,7 +112,10 @@ function handleNotesFromMidi(event, notePressed, noteReleased) {
  * to call `notePressed` and `noteReleased` functions when
  * relevant  MIDI input is detected.
  *
- * @param {*} param0
+ * @param {Object} properties A bundle of properties, could expand in the future to
+ * accommodate other MIDI input, such as controlling decay via sustain pedal.
+ * @param {(octave, note, freq) => void} properties.notePressed A function to call when a note is pressed. Outside this hook, we expect this to start a note.
+ * @param {(octave, note) => void} properties.noteReleased A function to call when a note is released. Outside this hook, we expect this to stop a note.
  */
 export default function useMidiController({ notePressed, noteReleased }) {
 	const [midiAccess, setMidiAccess] = useState(null);
