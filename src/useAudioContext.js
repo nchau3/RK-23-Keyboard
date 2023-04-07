@@ -7,7 +7,17 @@ import * as voiceSelect from "./voiceSelect";
 //context and main nodes declared outside of component
 const audioContext = new AudioContext();
 const mainGainNode = audioContext.createGain();
-mainGainNode.connect(audioContext.destination);
+const splitterNode = audioContext.createChannelSplitter(2);
+const compressorNode = new DynamicsCompressorNode(audioContext, {
+  attack: 0.001,
+  threshold: -45,
+});
+
+
+//routing
+splitterNode.connect(audioContext.destination);
+compressorNode.connect(splitterNode);
+mainGainNode.connect(compressorNode);
 
 //note frequencies array
 const noteFreq = createNoteTable();
@@ -74,13 +84,14 @@ export default function useAudioContext() {
   };
 
   const playTone = (freq) => {
-    const voiceNode = audioContext.createChannelMerger();
+    const harmonicsCount = voice.harmonics.length;
     const actualFreq = freq * convertOctave(octaveModifier);
 
-    for (let i = 1; i <= voice.harmonics.length; i++) {
+    const voiceNode = audioContext.createChannelMerger(harmonicsCount);
+
+    for (let i = 1; i <= harmonicsCount; i++) {
       //stack oscillators according to specified harmonics
       const osc = audioContext.createOscillator();
-      osc.type = voice.type;
 
       //multiples of fundamental frequency
       osc.frequency.value = actualFreq * i;
@@ -97,11 +108,14 @@ export default function useAudioContext() {
     // We make a separate voice gain node,
     // so that we can fade out the voice just before we cut it off
     const voiceGainNode = audioContext.createGain();
-    voiceGainNode.gain.value = 1;
+    voiceGainNode.gain.value = 0;
     voiceNode.connect(voiceGainNode);
 
     // We connect the voice gain node to the main gain node
     voiceGainNode.connect(mainGainNode);
+
+    //attack envelope
+    actuallySetTargetAtTime(voiceGainNode.gain, 1, audioContext.currentTime, 0.001);
 
     return { voiceNode, voiceGainNode };
   };
@@ -121,7 +135,7 @@ export default function useAudioContext() {
     const octaveIndex = Number(octave);
     const oldestPlayedNode = oscList[octaveIndex][note].shift();
     if (oldestPlayedNode) {
-      const decayTiming = 0.3;
+      const decayTiming = 0.2;
       actuallySetTargetAtTime(
         oldestPlayedNode.voiceGainNode.gain,
         0,
