@@ -129,6 +129,7 @@ export default function useAudioContext() {
       );
       // delay to allow for decay to complete
       await delayInSeconds(decayTiming);
+      oldestPlayedNode.voiceNode.disconnect();
     }
   }
 
