@@ -4,6 +4,7 @@ import Key from "./Key";
 
 //hooks
 import useAudioContext from "../useAudioContext";
+import useMidiController from "../hooks/use-midi-controller";
 import { useState, useRef, useEffect } from "react";
 
 //styles
@@ -20,6 +21,7 @@ export default function Keyboard() {
     octaveModifier,
     setOctaveModifier
    } = useAudioContext();
+  useMidiController({ notePressed, noteReleased })
 
   const [keysPressed, setKeysPressed] = useState([]);
 
