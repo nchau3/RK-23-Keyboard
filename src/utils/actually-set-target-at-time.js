@@ -14,17 +14,19 @@
  *
  * @param {AudioParam} audioParam
  * @param {number} duration
+ * @param {number} startTime
  * @param {number} targetValue
  */
 export default function actuallySetTargetAtTime(
 	audioParam,
 	targetValue,
+	startTime,
 	duration
 ) {
 	const timeConstant = duration / 5;
 	audioParam.setTargetAtTime(
 		targetValue,
-		audioContext.currentTime,
+		startTime,
 		timeConstant // seconds... but takes 5× this to decay to 95%
 	);
 }

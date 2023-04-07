@@ -125,6 +125,7 @@ export default function useAudioContext() {
       actuallySetTargetAtTime(
         oldestPlayedNode.voiceGainNode.gain,
         0,
+        audioContext.currentTime,
         decayTiming
       );
       // delay to allow for decay to complete
