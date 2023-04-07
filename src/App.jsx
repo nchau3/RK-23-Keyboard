@@ -11,7 +11,7 @@ function App() {
     //tabIndex allows autofocus of App on load to receive keyboard inputs
       <div 
       id="App">
-        <h1>REACT KEYBOARD</h1>
+        <h1>RK-23 KEYBOARD</h1>
         <Keyboard />
         <Instructions />
       </div>
