@@ -7,7 +7,9 @@ import * as voiceSelect from "./voiceSelect";
 //context and main nodes declared outside of component
 const audioContext = new AudioContext();
 const mainGainNode = audioContext.createGain();
-mainGainNode.connect(audioContext.destination);
+const splitterNode = audioContext.createChannelSplitter(2);
+splitterNode.connect(audioContext.destination);
+mainGainNode.connect(splitterNode);
 
 //note frequencies array
 const noteFreq = createNoteTable();
@@ -121,7 +123,7 @@ export default function useAudioContext() {
     const octaveIndex = Number(octave);
     const oldestPlayedNode = oscList[octaveIndex][note].shift();
     if (oldestPlayedNode) {
-      const decayTiming = 0.3;
+      const decayTiming = 0.4;
       actuallySetTargetAtTime(
         oldestPlayedNode.voiceGainNode.gain,
         0,
