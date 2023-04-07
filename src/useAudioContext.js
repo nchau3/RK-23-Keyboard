@@ -1,5 +1,7 @@
 import { useState } from "react";
 import createNoteTable from "./noteTable";
+import delayInSeconds from "./utils/delay-in-seconds";
+import actuallySetTargetAtTime from "./utils/actually-set-target-at-time";
 import * as voiceSelect from "./voiceSelect";
 
 //context and main nodes declared outside of component
@@ -15,6 +17,23 @@ const oscList = [];
 
 for (let i = 0; i < 9; i++) {
   oscList[i] = {};
+  const noteIds = [
+    "A",
+    "Ab",
+    "B",
+    "Bb",
+    "C",
+    "C#",
+    "D",
+    "E",
+    "Eb",
+    "F",
+    "F#",
+    "G",
+  ];
+  for (const noteId of noteIds) {
+    oscList[i][noteId] = [];
+  }
 }
 
 //manage state of all audio settings (gain, voice select, filters)
@@ -75,25 +94,43 @@ export default function useAudioContext() {
       oscGainNode.connect(voiceNode);
     }
 
-    voiceNode.connect(mainGainNode);
-    return voiceNode;
+    // We make a separate voice gain node,
+    // so that we can fade out the voice just before we cut it off
+    const voiceGainNode = audioContext.createGain();
+    voiceGainNode.gain.value = 1;
+    voiceNode.connect(voiceGainNode);
+
+    // We connect the voice gain node to the main gain node
+    voiceGainNode.connect(mainGainNode);
+
+    return { voiceNode, voiceGainNode };
   };
 
   //start and store oscillator so it can be indexed/stopped on key release
   const notePressed = (octave, note, freq) => {
     const octaveIndex = Number(octave);
-    //prevents duplicates
-    if (!oscList[octaveIndex][note]) {
-      oscList[octaveIndex][note] = playTone(freq);
-    }
+    // push this key press tone to the array.
+    // note we may have multiple `playTone` entries on the same key,
+    // this allows us to play a second instance of the same note before
+    // the first one is fully decayed.
+    oscList[octaveIndex][note].push(playTone(freq));
   }
 
   //retrieve active oscillator, stop playback and delete
-  const noteReleased = (octave, note) => {
+  const noteReleased = async (octave, note) => {
     const octaveIndex = Number(octave);
-    if (oscList[octaveIndex][note]) {
-      oscList[octaveIndex][note].disconnect();
-      delete oscList[octave][note];
+    const oldestPlayedNode = oscList[octaveIndex][note].shift();
+    if (oldestPlayedNode) {
+      const decayTiming = 0.3;
+      actuallySetTargetAtTime(
+        oldestPlayedNode.voiceGainNode.gain,
+        0,
+        audioContext.currentTime,
+        decayTiming
+      );
+      // delay to allow for decay to complete
+      await delayInSeconds(decayTiming);
+      oldestPlayedNode.voiceNode.disconnect();
     }
   }
 

@@ -22,19 +22,27 @@ export default function Key(props) {
 
   useEffect(() => {
     if (!keydown && keysPressed.includes(input)) {
-      notePressed(octave, note, freq);
       setKeydown(true);
     } else if (keydown && !keysPressed.includes(input)) {
-      noteReleased(octave, note);
       setKeydown(false);
     }
   }, [keysPressed])
+
+  /**
+	 * When keydown state changes, call notePressed or noteReleased
+	 */
+	useEffect(() => {
+		if (keydown === true) {
+			notePressed(octave, note, freq);
+		} else if (keydown === false) {
+			noteReleased(octave, note);
+		}
+	}, [keydown]);
 
   const notePressedHandler = (event) => {
     //check for primary mouse button
     if ((event.buttons & 1) && width > 800) {
       if (!keydown) {
-        notePressed(octave, note, freq);
         setKeydown(true);
       }
     }
@@ -50,7 +58,6 @@ export default function Key(props) {
   const touchStartHandler = () => {
     if ((!isLandScape && width < 480) || (isLandScape && width < 800)) {
       if (!keydown) {
-        notePressed(octave, note, freq);
         setKeydown(true);
       }
     }
@@ -59,7 +66,6 @@ export default function Key(props) {
   const touchEndHandler = () => {
     if ((!isLandScape && width < 480) || (isLandScape && width < 800)) {
       if (keydown) {
-        noteReleased(octave, note);
         setKeydown(false);
       }
     }
