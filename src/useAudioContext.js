@@ -92,7 +92,6 @@ export default function useAudioContext() {
     for (let i = 1; i <= harmonicsCount; i++) {
       //stack oscillators according to specified harmonics
       const osc = audioContext.createOscillator();
-      osc.type = voice.type;
 
       //multiples of fundamental frequency
       osc.frequency.value = actualFreq * i;
@@ -109,11 +108,14 @@ export default function useAudioContext() {
     // We make a separate voice gain node,
     // so that we can fade out the voice just before we cut it off
     const voiceGainNode = audioContext.createGain();
-    voiceGainNode.gain.value = 1;
+    voiceGainNode.gain.value = 0;
     voiceNode.connect(voiceGainNode);
 
     // We connect the voice gain node to the main gain node
     voiceGainNode.connect(mainGainNode);
+
+    //attack envelope
+    actuallySetTargetAtTime(voiceGainNode.gain, 1, audioContext.currentTime, 0.001);
 
     return { voiceNode, voiceGainNode };
   };
