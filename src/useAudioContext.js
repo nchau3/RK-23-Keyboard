@@ -8,8 +8,16 @@ import * as voiceSelect from "./voiceSelect";
 const audioContext = new AudioContext();
 const mainGainNode = audioContext.createGain();
 const splitterNode = audioContext.createChannelSplitter(2);
+const compressorNode = new DynamicsCompressorNode(audioContext, {
+  attack: 0.001,
+  threshold: -45,
+});
+
+
+//routing
 splitterNode.connect(audioContext.destination);
-mainGainNode.connect(splitterNode);
+compressorNode.connect(splitterNode);
+mainGainNode.connect(compressorNode);
 
 //note frequencies array
 const noteFreq = createNoteTable();
@@ -77,9 +85,9 @@ export default function useAudioContext() {
 
   const playTone = (freq) => {
     const harmonicsCount = voice.harmonics.length;
+    const actualFreq = freq * convertOctave(octaveModifier);
 
     const voiceNode = audioContext.createChannelMerger(harmonicsCount);
-    const actualFreq = freq * convertOctave(octaveModifier);
 
     for (let i = 1; i <= harmonicsCount; i++) {
       //stack oscillators according to specified harmonics
@@ -106,7 +114,6 @@ export default function useAudioContext() {
 
     // We connect the voice gain node to the main gain node
     voiceGainNode.connect(mainGainNode);
-    console.log(voiceNode.numberOfInputs)
 
     return { voiceNode, voiceGainNode };
   };
@@ -126,7 +133,7 @@ export default function useAudioContext() {
     const octaveIndex = Number(octave);
     const oldestPlayedNode = oscList[octaveIndex][note].shift();
     if (oldestPlayedNode) {
-      const decayTiming = 0.4;
+      const decayTiming = 0.2;
       actuallySetTargetAtTime(
         oldestPlayedNode.voiceGainNode.gain,
         0,
