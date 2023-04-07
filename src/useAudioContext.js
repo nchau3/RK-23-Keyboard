@@ -1,5 +1,7 @@
 import { useState } from "react";
 import createNoteTable from "./noteTable";
+import delayInSeconds from "./utils/delay-in-seconds";
+import actuallySetTargetAtTime from "./utils/actually-set-target-at-time";
 import * as voiceSelect from "./voiceSelect";
 
 //context and main nodes declared outside of component
@@ -75,8 +77,16 @@ export default function useAudioContext() {
       oscGainNode.connect(voiceNode);
     }
 
-    voiceNode.connect(mainGainNode);
-    return voiceNode;
+    // We make a separate voice gain node,
+    // so that we can fade out the voice just before we cut it off
+    const voiceGainNode = audioContext.createGain();
+    voiceGainNode.gain.value = 1;
+    voiceNode.connect(voiceGainNode);
+
+    // We connect the voice gain node to the main gain node
+    voiceGainNode.connect(mainGainNode);
+
+    return { voiceNode, voiceGainNode };
   };
 
   //start and store oscillator so it can be indexed/stopped on key release
@@ -89,11 +99,15 @@ export default function useAudioContext() {
   }
 
   //retrieve active oscillator, stop playback and delete
-  const noteReleased = (octave, note) => {
+  const noteReleased = async (octave, note) => {
     const octaveIndex = Number(octave);
-    if (oscList[octaveIndex][note]) {
-      oscList[octaveIndex][note].disconnect();
-      delete oscList[octave][note];
+    const maybeNode = oscList[octaveIndex][note];
+    if (maybeNode) {
+      const decayTiming = 0.3;
+      actuallySetTargetAtTime(maybeNode.voiceGainNode.gain, decayTiming);
+      // delay to allow for decay to "complete", really this is 95% decayed
+      await delayInSeconds(decayTiming * 1000);
+      oldestPlayedNode.voiceNode.disconnect();
     }
   }
 
