@@ -17,6 +17,23 @@ const oscList = [];
 
 for (let i = 0; i < 9; i++) {
   oscList[i] = {};
+  const noteIds = [
+    "A",
+    "Ab",
+    "B",
+    "Bb",
+    "C",
+    "C#",
+    "D",
+    "E",
+    "Eb",
+    "F",
+    "F#",
+    "G",
+  ];
+  for (const noteId of noteIds) {
+    oscList[i][noteId] = [];
+  }
 }
 
 //manage state of all audio settings (gain, voice select, filters)
@@ -92,22 +109,22 @@ export default function useAudioContext() {
   //start and store oscillator so it can be indexed/stopped on key release
   const notePressed = (octave, note, freq) => {
     const octaveIndex = Number(octave);
-    //prevents duplicates
-    if (!oscList[octaveIndex][note]) {
-      oscList[octaveIndex][note] = playTone(freq);
-    }
+    // push this key press tone to the array.
+    // note we may have multiple `playTone` entries on the same key,
+    // this allows us to play a second instance of the same note before
+    // the first one is fully decayed.
+    oscList[octaveIndex][note].push(playTone(freq));
   }
 
   //retrieve active oscillator, stop playback and delete
   const noteReleased = async (octave, note) => {
     const octaveIndex = Number(octave);
-    const maybeNode = oscList[octaveIndex][note];
-    if (maybeNode) {
+    const oldestPlayedNode = oscList[octaveIndex][note].shift();
+    if (oldestPlayedNode) {
       const decayTiming = 0.3;
-      actuallySetTargetAtTime(maybeNode.voiceGainNode.gain, decayTiming);
-      // delay to allow for decay to "complete", really this is 95% decayed
-      await delayInSeconds(decayTiming * 1000);
-      oldestPlayedNode.voiceNode.disconnect();
+      actuallySetTargetAtTime(oldestPlayedNode.voiceGainNode.gain, decayTiming);
+      // delay to allow for decay to complete
+      await delayInSeconds(decayTiming);
     }
   }
 
