@@ -21,7 +21,8 @@ export default function Keyboard() {
     octaveModifier,
     setOctaveModifier
    } = useAudioContext();
-  useMidiController({ notePressed, noteReleased })
+
+  useMidiController({ notePressed, noteReleased });
 
   const [keysPressed, setKeysPressed] = useState([]);
 

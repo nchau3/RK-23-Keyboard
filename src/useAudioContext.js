@@ -10,7 +10,7 @@ const mainGainNode = audioContext.createGain();
 const splitterNode = audioContext.createChannelSplitter(2);
 const compressorNode = new DynamicsCompressorNode(audioContext, {
   attack: 0.001,
-  threshold: -45,
+  threshold: -50
 });
 
 
