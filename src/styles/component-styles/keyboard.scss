@@ -26,6 +26,7 @@
 
 .key {
   flex: 1;
+
   color: black;
   user-select: none;
   position: relative;
@@ -60,7 +61,7 @@
   
   position: relative;
   margin: 0 -45px 0 0;
-  transform: translateX(-70%);
+  transform: translateX(-65%);
   z-index: 2;
 }
 
