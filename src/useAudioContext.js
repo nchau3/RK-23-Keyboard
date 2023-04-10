@@ -53,7 +53,9 @@ export default function useAudioContext() {
     gain: 0.1048
   });
 
-  const [voice, setVoice] = useState(voiceSelect.voice1);
+  console.log(voiceSelect.voiceLibrary);
+
+  const [voice, setVoice] = useState(voiceSelect.voiceLibrary[0]);
 
   const [octaveModifier, setOctaveModifier] = useState(0);
 

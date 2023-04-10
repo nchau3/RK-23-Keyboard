@@ -92,7 +92,7 @@ export default function Keyboard() {
         }
 
         return (
-          <div className="key-wrapper">
+          <div className="key-wrapper" key={`key-wrapper ${octaveIndex}-${keyIndex}`}>
             <Key 
               key={`${key[0]}${key[1]}`}
               note={key[0]}
@@ -112,7 +112,7 @@ export default function Keyboard() {
       }
       else if (!isBlackKey(noteIndex)){
         return (
-          <div className="key-wrapper">
+          <div className="key-wrapper" key={`key-wrapper ${octaveIndex}-${keyIndex}`}>
             <Key 
             key={`${key[0]}${key[1]}`}
             note={key[0]}
