@@ -10,7 +10,7 @@ const mainGainNode = audioContext.createGain();
 const splitterNode = audioContext.createChannelSplitter(2);
 const compressorNode = new DynamicsCompressorNode(audioContext, {
   attack: 0.001,
-  threshold: -50
+  threshold: -55
 });
 
 
@@ -58,7 +58,7 @@ export default function useAudioContext() {
   const [octaveModifier, setOctaveModifier] = useState(0);
 
   //gain node capped heavily to ease distortion and improve sound quality
-  mainGainNode.gain.value = sliders.masterGain / 6;
+  mainGainNode.gain.value = sliders.masterGain / 10;
   
   const changeSliders = (slider, newValue) => {
     setSliders(prev => ({...prev, [slider]: newValue}));
