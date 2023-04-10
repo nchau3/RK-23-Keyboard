@@ -42,6 +42,7 @@ export default function Key(props) {
 	}, [keydown]);
 
   const notePressedHandler = (event) => {
+    event.stopPropagation();
     //check for primary mouse button
     if ((event.buttons & 1) && width > 800) {
       if (!keydown) {
@@ -95,7 +96,7 @@ export default function Key(props) {
           keyUp={blackKeyProps.keyUp}
           input={blackKeyProps.input}
           keysPressed={blackKeyProps.keysPressed}
-          white={blackKeyProps.whiteKey}
+          whiteKey={blackKeyProps.whiteKey}
         />
       }
     </div>

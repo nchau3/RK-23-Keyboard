@@ -73,6 +73,8 @@ export default function Keyboard() {
         return false;
       };
 
+      // only render white keys at this stage, passing the next black key's props
+      // blackKeys will be rendered as children of their preceding white key for styling purposes
       if (next && !isBlackKey(noteIndex) && isBlackKey(next[0])) {
         const blackKeyProps = {
           key: `${next[0]}${next[1]}`,
@@ -89,7 +91,28 @@ export default function Keyboard() {
         }
 
         return (
-          <Key 
+          <div className="key-wrapper">
+            <Key 
+              key={`${key[0]}${key[1]}`}
+              note={key[0]}
+              octave={octaveIndex}
+              freq={key[1]}
+              notePressed={notePressed}
+              noteReleased={noteReleased}
+              keyDown={handleKeyDown}
+              keyUp={handleKeyUp}
+              input={keyboardInputs[inputIndex]}
+              keysPressed={keysPressed}
+              whiteKey={!isBlackKey(key[0])}
+              blackKeyProps={blackKeyProps}
+            />
+          </div>
+          )
+      }
+      else if (!isBlackKey(noteIndex)){
+        return (
+          <div className="key-wrapper">
+            <Key 
             key={`${key[0]}${key[1]}`}
             note={key[0]}
             octave={octaveIndex}
@@ -101,25 +124,8 @@ export default function Keyboard() {
             input={keyboardInputs[inputIndex]}
             keysPressed={keysPressed}
             whiteKey={!isBlackKey(key[0])}
-            blackKeyProps={blackKeyProps}
-          />
-          )
-      }
-      else if (!isBlackKey(noteIndex)){
-        return (
-          <Key 
-          key={`${key[0]}${key[1]}`}
-          note={key[0]}
-          octave={octaveIndex}
-          freq={key[1]}
-          notePressed={notePressed}
-          noteReleased={noteReleased}
-          keyDown={handleKeyDown}
-          keyUp={handleKeyUp}
-          input={keyboardInputs[inputIndex]}
-          keysPressed={keysPressed}
-          whiteKey={!isBlackKey(key[0])}
-        />
+            />
+          </div>
         )
       }
       })

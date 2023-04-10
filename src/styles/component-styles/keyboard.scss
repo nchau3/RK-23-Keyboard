@@ -22,15 +22,16 @@
   height: 50%;
   width: 100%;
   border-top: solid 1px white;
+  position: relative;
+}
+
+.key-wrapper {
+  flex: 1;
 }
 
 .key {
-  flex: 1;
-
   color: black;
-  user-select: none;
-  position: relative;
-
+  
   input {
     display: none;
   }
@@ -49,7 +50,7 @@
 
 .key-black {
   height: 55%;
-  max-width: 3.5%;
+  max-width: 35%;
   color: white;
   background-color: black;
 
@@ -58,9 +59,11 @@
   border-bottom: solid 7px rgb(56, 56, 56);
   border-right: solid 5px rgb(29, 29, 29);
   border-left: solid 5px rgb(0, 0, 0);
-  
+
   position: relative;
-  margin: 0 -45px 0 0;
+  margin: 0 auto;
+  transform: translateX(105%);
+
   z-index: 2;
 }
 
