@@ -69,8 +69,13 @@
 
 .voice-display {
   @include display;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   height: 4rem;
-  width: 15rem;
+  width: 18rem;
+  padding: 0 1em;
+  font-size: 2rem;
 }
 
 .lower-bar {

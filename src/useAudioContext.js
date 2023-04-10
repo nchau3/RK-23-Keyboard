@@ -2,7 +2,7 @@ import { useState } from "react";
 import createNoteTable from "./noteTable";
 import delayInSeconds from "./utils/delay-in-seconds";
 import actuallySetTargetAtTime from "./utils/actually-set-target-at-time";
-import * as voiceSelect from "./voiceSelect";
+import voiceLibrary from "./voiceSelect";
 
 //context and main nodes declared outside of component
 const audioContext = new AudioContext();
@@ -53,9 +53,7 @@ export default function useAudioContext() {
     gain: 0.1048
   });
 
-  console.log(voiceSelect.voiceLibrary);
-
-  const [voice, setVoice] = useState(voiceSelect.voiceLibrary[0]);
+  const [voice, setVoice] = useState(voiceLibrary[0]);
 
   const [octaveModifier, setOctaveModifier] = useState(0);
 
@@ -66,9 +64,18 @@ export default function useAudioContext() {
     setSliders(prev => ({...prev, [slider]: newValue}));
   }
 
-  const changeVoice = (newVoice) => {
-    setVoice(voiceSelect[newVoice]);
-  }
+  const changeVoice = (value) => {
+    const currentIndex = voiceLibrary.indexOf(voice);
+    const newIndex = currentIndex + value;
+    
+    if (newIndex === voiceLibrary.length) {
+      setVoice(voiceLibrary[0]);
+    } else if (newIndex < 0) {
+      setVoice(voiceLibrary[voiceLibrary.length - 1])
+    } else {
+      setVoice(voiceLibrary[currentIndex + value]);
+    }
+  };
 
   const convertOctave = (modifier) => {
     switch (modifier) {
