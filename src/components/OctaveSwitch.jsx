@@ -13,14 +13,18 @@ export default function OctaveSwitch(props) {
       <label htmlFor="octave-switch">OCTAVE</label>
       <div className="octave-switch">
         <div 
-          className="octave-button"
+          className="control-button"
           onClick={() => changeOctave(-1)}
-        ><i className="fa-solid fa-caret-left"></i></div>
-        <div className="octave-display">{octave}</div>
+          ><i className="fa-solid fa-caret-left"></i>
+        </div>
+        <div className="octave-display">
+          {octave}
+        </div>
         <div
-          className="octave-button"
+          className="control-button"
           onClick={() => changeOctave(1)}
-        ><i className="fa-solid fa-caret-right"></i></div>
+          ><i className="fa-solid fa-caret-right"></i>
+        </div>
       </div>
     </div>
   )

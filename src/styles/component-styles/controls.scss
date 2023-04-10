@@ -52,47 +52,30 @@
 }
 
 .voice-select-container {
-  width: 55%;
-
+  display: flex;
+  flex-direction: column;
   label {
-    float: left;
     margin: .5em;
   }
 }
 
 .voice-select {
-  @include display;
-
   display: flex;
   justify-content: space-around;
   align-items: center;
   height: 4rem;
-  width: 100%;
-  padding: 0 .5em;
-  
-  li {
-    height: fit-content;
-    font-weight: bold;
-    padding: .35em;
-    border: 2px solid;
-    border-radius: 3px;
-    filter: invert(.45);
+  font-size: 2.5rem;
+}
 
-    transition: filter 0.15s;
-    
-    &:hover {
-      opacity: 0.9;
-    }
-  }
-  
-  .selected {
-    filter: none;
-  }
+.voice-display {
+  @include display;
+  height: 4rem;
+  width: 15rem;
 }
 
 .lower-bar {
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
   align-items: center;
   height: 4rem;
   width: 100%;
@@ -101,7 +84,7 @@
 .octave-switch-container {
   display: flex;
   flex-direction: column;
-
+  
   label {
     margin: .5em;
   }
@@ -122,7 +105,7 @@
   width: 4rem;
 }
 
-.octave-button {
+.control-button {
   font-size: 1.5em;
   padding: 0 .5rem;
   color: rgb(255, 93, 120);
@@ -132,6 +115,6 @@
   }
 
   &:active {
-    transform: translateY(0);
+    transform: scale(1);
   }
 }

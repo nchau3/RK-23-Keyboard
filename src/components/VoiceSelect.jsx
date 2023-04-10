@@ -12,23 +12,17 @@ export default function VoiceSelect(props) {
   return (
     <div className="voice-select-container">
       <label htmlFor="voice-select">VOICE SELECT</label>
-      <ul className="voice-select">
-        <li 
-          className={selected === voice.name ? "selected" : ""}
-          onClick={() => changeVoice("voice1")}
-          >
-            {voice.name.toUpperCase()}</li>
-          <li 
-          className={selected === "voice2" ? "selected" : ""}
-          onClick={() => changeVoice("voice2")}
-          >
-            VOICE 2</li>
-          <li 
-          className={selected === "voice3" ? "selected" : ""}
-          onClick={() => changeVoice("voice3")}
-          >
-            VOICE 3</li>
-      </ul>
+      <div className="voice-select">
+        <div className="control-button"><i className="fa-solid fa-caret-left"></i></div>
+        <div className="voice-display">
+          <div 
+            className="voice-name"
+            onClick={() => changeVoice("voice1")}
+            >
+              {voice.name.toUpperCase()}</div>
+        </div>
+        <div className="control-button"><i className="fa-solid fa-caret-right"></i></div>
+      </div>
     </div>
   )
 }
