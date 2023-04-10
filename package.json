@@ -2,7 +2,7 @@
   "name": "react-keyboard",
   "private": true,
   "version": "0.0.0",
-  "homepage": "https://nchau3.github.io/RK-23-keyboard",
+  "homepage": "https://nchau3.github.io/RK-23-Keyboard",
   "type": "module",
   "scripts": {
     "dev": "vite",
