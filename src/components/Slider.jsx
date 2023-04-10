@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import SliderBar from "./SliderBar";
 
 export default function Slider(props) {
-  const { name, min, max, gain, onChange } = props;
+  const { name, min, max, value, onChange } = props;
   const [gainMeter, setGainMeter] = useState(0);
 
   const getSlider = () => {
@@ -24,8 +24,8 @@ export default function Slider(props) {
   }
 
   useEffect(() => {
-    setGainMeter(gain * 50);
-  }, [gain]);
+    setGainMeter(value * max);
+  }, [value]);
 
   return (
     <div className="slider-container">

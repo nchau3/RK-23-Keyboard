@@ -7,11 +7,11 @@ import "../styles/component-styles/controls.scss"
 import Slider from "./Slider";
 
 export default function Controls(props) {
-  const { masterGain } = props.sliders;
+  const { gain } = props.sliders;
 
   return (
     <div className="controls">
-      <Slider name={"gain"} min={1} max={50} gain={masterGain} onChange={props.onChange} />
+      <Slider name={"gain"} min={1} max={50} value={gain} onChange={props.onChange} />
       <span className="lower-bar">
         <VoiceSelect onSelect={props.onSelect} />
         <OctaveSwitch octave={props.octave} setOctave={props.setOctave}/>
