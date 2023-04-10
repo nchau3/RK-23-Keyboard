@@ -10,7 +10,7 @@ const mainGainNode = audioContext.createGain();
 const splitterNode = audioContext.createChannelSplitter(2);
 const compressorNode = new DynamicsCompressorNode(audioContext, {
   attack: 0.001,
-  threshold: -50
+  threshold: -55
 });
 
 
@@ -58,7 +58,7 @@ export default function useAudioContext() {
   const [octaveModifier, setOctaveModifier] = useState(0);
 
   //gain node capped heavily to ease distortion and improve sound quality
-  mainGainNode.gain.value = sliders.masterGain / 6;
+  mainGainNode.gain.value = sliders.masterGain / 10;
   
   const changeSliders = (slider, newValue) => {
     setSliders(prev => ({...prev, [slider]: newValue}));
@@ -84,12 +84,13 @@ export default function useAudioContext() {
   };
 
   const playTone = (freq) => {
-    const harmonicsCount = voice.harmonics.length;
     const actualFreq = freq * convertOctave(octaveModifier);
+    const harmonics = voice.harmonics;
+    const attack = voice.envelope.attack;
 
-    const voiceNode = audioContext.createChannelMerger(harmonicsCount);
+    const voiceNode = audioContext.createChannelMerger(harmonics.length);
 
-    for (let i = 1; i <= harmonicsCount; i++) {
+    for (let i = 1; i <= harmonics.length; i++) {
       //stack oscillators according to specified harmonics
       const osc = audioContext.createOscillator();
 
@@ -115,7 +116,7 @@ export default function useAudioContext() {
     voiceGainNode.connect(mainGainNode);
 
     //attack envelope
-    actuallySetTargetAtTime(voiceGainNode.gain, 1, audioContext.currentTime, 0.001);
+    actuallySetTargetAtTime(voiceGainNode.gain, 1, audioContext.currentTime, attack);
 
     return { voiceNode, voiceGainNode };
   };
@@ -135,15 +136,15 @@ export default function useAudioContext() {
     const octaveIndex = Number(octave);
     const oldestPlayedNode = oscList[octaveIndex][note].shift();
     if (oldestPlayedNode) {
-      const decayTiming = 0.2;
+      const release = voice.envelope.release;
       actuallySetTargetAtTime(
         oldestPlayedNode.voiceGainNode.gain,
         0,
         audioContext.currentTime,
-        decayTiming
+        release
       );
       // delay to allow for decay to complete
-      await delayInSeconds(decayTiming);
+      await delayInSeconds(release);
       oldestPlayedNode.voiceNode.disconnect();
     }
   }
