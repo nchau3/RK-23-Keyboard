@@ -50,7 +50,7 @@ for (let i = 0; i < 9; i++) {
 export default function useAudioContext() {
   //sliders object leaves room to implement other levels (EQ, filters)
   const [sliders, setSliders] = useState({
-    masterGain: 0.5
+    gain: 0.5
   });
 
   const [voice, setVoice] = useState(voiceSelect.voice1);
@@ -58,10 +58,11 @@ export default function useAudioContext() {
   const [octaveModifier, setOctaveModifier] = useState(0);
 
   //gain node capped heavily to ease distortion and improve sound quality
-  mainGainNode.gain.value = sliders.masterGain / 10;
+  mainGainNode.gain.value = sliders.gain / 10;
   
   const changeSliders = (slider, newValue) => {
     setSliders(prev => ({...prev, [slider]: newValue}));
+    console.log(`GAIN: ${sliders.gain}`);
   }
 
   const changeVoice = (newVoice) => {

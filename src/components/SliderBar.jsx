@@ -1,7 +1,7 @@
 export default function SliderBar(props) {
 
   const selectHandler = (newValue) => {
-    props.onChange("masterGain", newValue / 50);
+    props.onChange(props.name, newValue / 50);
   }
 
   return (

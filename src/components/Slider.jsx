@@ -2,12 +2,12 @@ import { useEffect, useState } from "react";
 import SliderBar from "./SliderBar";
 
 export default function Slider(props) {
-  const { gain, onChange } = props;
+  const { name, min, max, gain, onChange } = props;
   const [gainMeter, setGainMeter] = useState(0);
 
   const getSlider = () => {
     const sliderBars = []
-    for (let i = 1; i <= 50; i++) {
+    for (let i = min; i <= max; i++) {
       sliderBars.push(i);
     }
 
@@ -15,6 +15,7 @@ export default function Slider(props) {
       return (
         <SliderBar
           key={`slider-${bar}`}
+          name={name}
           value={bar}
           onChange={onChange}
           active={bar <= gainMeter ? true : false} />
@@ -28,7 +29,7 @@ export default function Slider(props) {
 
   return (
     <div className="slider-container">
-      <label htmlFor="slider">GAIN</label>
+      <label htmlFor={`${name}-slider`}>{name.toUpperCase()}</label>
       <div className="slider">
         <div className="slider-bar-container">
           {getSlider()}
