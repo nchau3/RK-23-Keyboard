@@ -28,6 +28,10 @@ export default function Slider(props) {
     }
   }
 
+  const calculatePosition = (value) => {
+    return Math.round(log.position(value * 100));
+  }
+
   const handleChange = (newPosition) => {
     onChange(name, calculateValue(newPosition));
   }
@@ -51,7 +55,7 @@ export default function Slider(props) {
   }
 
   useEffect(() => {
-    setSliderPosition(log.position(value * 100));
+    setSliderPosition(calculatePosition(value));
   }, [value]);
 
   return (
