@@ -11,7 +11,14 @@ export default function Controls(props) {
 
   return (
     <div className="controls">
-      <Slider name={"gain"} min={1} max={50} value={gain} onChange={props.onChange} />
+      <Slider 
+        name={"gain"}
+        minPos={1}
+        maxPos={50}
+        minVal={0}
+        maxVal={100}
+        value={gain}
+        onChange={props.onChange} />
       <span className="lower-bar">
         <VoiceSelect onSelect={props.onSelect} />
         <OctaveSwitch octave={props.octave} setOctave={props.setOctave}/>

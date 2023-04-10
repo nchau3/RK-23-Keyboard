@@ -16,6 +16,7 @@ export default function Key(props) {
 
   const keyClassNames = `${whiteKey ? "key key-white" : "key key-black"} ${keydown ? "keydown" : ""}`;
 
+  //detecting viewport dimensions for mobile touch events instead of click events
   const width = window.outerWidth;
   const height = window.outerHeight;
   const isLandScape = width > height ? true : false;

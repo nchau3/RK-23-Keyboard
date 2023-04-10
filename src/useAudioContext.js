@@ -50,7 +50,7 @@ for (let i = 0; i < 9; i++) {
 export default function useAudioContext() {
   //sliders object leaves room to implement other levels (EQ, filters)
   const [sliders, setSliders] = useState({
-    gain: 0.5
+    gain: 0.1048
   });
 
   const [voice, setVoice] = useState(voiceSelect.voice1);
@@ -62,7 +62,6 @@ export default function useAudioContext() {
   
   const changeSliders = (slider, newValue) => {
     setSliders(prev => ({...prev, [slider]: newValue}));
-    console.log(`GAIN: ${sliders.gain}`);
   }
 
   const changeVoice = (newVoice) => {
