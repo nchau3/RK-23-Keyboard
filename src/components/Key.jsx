@@ -12,6 +12,7 @@ export default function Key(props) {
     input, 
     whiteKey, 
     keysPressed,
+    blackKeyProps
   } = props;
 
   const keyClassNames = `${whiteKey ? "key key-white" : "key key-black"} ${keydown ? "keydown" : ""}`;
@@ -82,6 +83,21 @@ export default function Key(props) {
       onMouseLeave={() => noteReleasedHandler()}
       onTouchStart={() => touchStartHandler()}
       onTouchEnd={() => touchEndHandler()}>
+      {blackKeyProps && 
+        <Key 
+          key={blackKeyProps.key}
+          note={blackKeyProps.note}
+          octave={blackKeyProps.octave}
+          freq={blackKeyProps.freq}
+          notePressed={blackKeyProps.notePressed}
+          noteReleased={blackKeyProps.noteReleased}
+          keyDown={blackKeyProps.keyDown}
+          keyUp={blackKeyProps.keyUp}
+          input={blackKeyProps.input}
+          keysPressed={blackKeyProps.keysPressed}
+          white={blackKeyProps.whiteKey}
+        />
+      }
     </div>
   )
 }

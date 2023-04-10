@@ -42,29 +42,86 @@ export default function Keyboard() {
     ref.current.focus();
   }, []);
 
-  let i = -1;
+  let inputIndex = -1;
 
-  const pianoKeys = noteFreq.map((keys, index) => {
+  const pianoKeys = noteFreq.map((keys, octaveIndex) => {
     const keyList = Object.entries(keys);
     const keyboardInputs = ['a', 'w', 's', 'd', 'r', 'f', 't', 'g', 'h', 'u', 'j', 'i', 'k', 'o', 'l', ';'];
     
-    return keyList.map((key) => {
-      i++;
-      return (
-        <Key 
+    return keyList.map((key, keyIndex) => {
+      inputIndex++;
+
+      const noteIndex = Object.keys(noteFreq[octaveIndex])[keyIndex];
+
+      //check the next note in noteFreq to check for blackKey
+      const getNextNote = () => {
+        if (keyIndex + 1 < keyList.length) {
+          return keyList[keyIndex + 1];
+        } else if (Object.keys(noteFreq[octaveIndex + 1]).length > 0) {
+          return Object.keys(noteFreq[octaveIndex + 1])[0];
+        } else {
+          return null;
+        }
+      }
+
+      const next = getNextNote();
+
+      const isBlackKey = (note) => {
+        if (note.length === 2) {
+          return true;
+        }
+        return false;
+      };
+
+      if (next && !isBlackKey(noteIndex) && isBlackKey(next[0])) {
+        const blackKeyProps = {
+          key: `${next[0]}${next[1]}`,
+          note: next[0],
+          octave: octaveIndex,
+          freq: next[1],
+          notePressed: notePressed,
+          noteReleased: noteReleased,
+          keyDown: handleKeyDown,
+          keyUp: handleKeyUp,
+          input: keyboardInputs[inputIndex + 1],
+          keysPressed: keysPressed,
+          whiteKey: false
+        }
+
+        return (
+          <Key 
+            key={`${key[0]}${key[1]}`}
+            note={key[0]}
+            octave={octaveIndex}
+            freq={key[1]}
+            notePressed={notePressed}
+            noteReleased={noteReleased}
+            keyDown={handleKeyDown}
+            keyUp={handleKeyUp}
+            input={keyboardInputs[inputIndex]}
+            keysPressed={keysPressed}
+            whiteKey={!isBlackKey(key[0])}
+            blackKeyProps={blackKeyProps}
+          />
+          )
+      }
+      else if (!isBlackKey(noteIndex)){
+        return (
+          <Key 
           key={`${key[0]}${key[1]}`}
           note={key[0]}
-          octave={index}
+          octave={octaveIndex}
           freq={key[1]}
           notePressed={notePressed}
           noteReleased={noteReleased}
           keyDown={handleKeyDown}
           keyUp={handleKeyUp}
-          input={keyboardInputs[i]}
+          input={keyboardInputs[inputIndex]}
           keysPressed={keysPressed}
-          whiteKey={key[0].length === 2 ? false : true}
+          whiteKey={!isBlackKey(key[0])}
         />
         )
+      }
       })
     })
 
