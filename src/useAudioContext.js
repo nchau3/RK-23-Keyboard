@@ -161,6 +161,7 @@ export default function useAudioContext() {
     octaveModifier,
     setOctaveModifier,
     convertOctave,
+    voice,
     changeVoice
    };
 }

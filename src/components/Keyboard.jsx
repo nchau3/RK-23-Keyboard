@@ -17,6 +17,7 @@ export default function Keyboard() {
     noteFreq,
     notePressed,
     noteReleased,
+    voice,
     changeVoice,
     octaveModifier,
     setOctaveModifier
@@ -140,6 +141,7 @@ export default function Keyboard() {
       <Controls 
         sliders={sliders} 
         onChange={changeSliders}
+        voice={voice}
         onSelect={changeVoice}
         octave={octaveModifier}
         setOctave={setOctaveModifier} />

@@ -1,10 +1,11 @@
 import { useState } from "react"
 
 export default function VoiceSelect(props) {
-  const [selected, setSelected] = useState("voice1");
+  const { voice, onSelect } = props;
+  const [selected, setSelected] = useState(voice.name);
 
   const changeVoice = (newVoice) => {
-    props.onSelect(newVoice);
+    onSelect(newVoice);
     setSelected(newVoice);
   }
 
@@ -13,10 +14,10 @@ export default function VoiceSelect(props) {
       <label htmlFor="voice-select">VOICE SELECT</label>
       <ul className="voice-select">
         <li 
-          className={selected === "voice1" ? "selected" : ""}
+          className={selected === voice.name ? "selected" : ""}
           onClick={() => changeVoice("voice1")}
           >
-            VOICE 1</li>
+            {voice.name.toUpperCase()}</li>
           <li 
           className={selected === "voice2" ? "selected" : ""}
           onClick={() => changeVoice("voice2")}

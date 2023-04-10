@@ -20,7 +20,7 @@ export default function Controls(props) {
         value={gain}
         onChange={props.onChange} />
       <span className="lower-bar">
-        <VoiceSelect onSelect={props.onSelect} />
+        <VoiceSelect voice={props.voice} onSelect={props.onSelect} />
         <OctaveSwitch octave={props.octave} setOctave={props.setOctave}/>
       </span>
     </div>
