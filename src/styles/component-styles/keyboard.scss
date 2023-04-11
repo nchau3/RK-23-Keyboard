@@ -22,18 +22,12 @@
   height: 50%;
   width: 100%;
   border-top: solid 1px white;
+  position: relative;
 }
 
-.key {
+.key-wrapper {
   flex: 1;
-
   color: black;
-  user-select: none;
-  position: relative;
-
-  input {
-    display: none;
-  }
 }
 
 .key-white {
@@ -49,19 +43,20 @@
 
 .key-black {
   height: 55%;
-  max-width: 3.5%;
+  max-width: 35%;
   color: white;
   background-color: black;
 
-  border-bottom-left-radius: 3px;
-  border-bottom-right-radius: 3px;
   border-bottom: solid 7px rgb(56, 56, 56);
   border-right: solid 5px rgb(29, 29, 29);
   border-left: solid 5px rgb(0, 0, 0);
-  
+  border-bottom-left-radius: 3px;
+  border-bottom-right-radius: 3px;
+
   position: relative;
-  margin: 0 -45px 0 0;
-  transform: translateX(-65%);
+  margin: 0 auto;
+  transform: translateX(105%);
+
   z-index: 2;
 }
 

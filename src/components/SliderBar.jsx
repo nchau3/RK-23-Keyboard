@@ -1,14 +1,9 @@
 export default function SliderBar(props) {
-
-  const selectHandler = (newValue) => {
-    props.onChange("masterGain", newValue / 50);
-  }
-
   return (
     <div 
       className={`slider-bar ${props.active ? "active" : ""}`}
-      onClick={() => selectHandler(props.value)}
-      onMouseOver={() => selectHandler(props.value)}
+      onClick={() => props.onChange(props.value)}
+      onMouseOver={() => props.onChange(props.value)}
       >
     </div>
   )

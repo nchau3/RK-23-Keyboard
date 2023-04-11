@@ -1,9 +1,11 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 export default function Key(props) {
   const [keydown, setKeydown] = useState(false);
+  const ref = useRef();
 
-  const { 
+  const {
+    id,
     octave,
     note,
     freq, 
@@ -12,10 +14,14 @@ export default function Key(props) {
     input, 
     whiteKey, 
     keysPressed,
+    blackKeyProps,
+    whiteKeyRef,
+    whiteKeyRelease
   } = props;
 
-  const keyClassNames = `${whiteKey ? "key key-white" : "key key-black"} ${keydown ? "keydown" : ""}`;
+  const keyClassNames = `${whiteKey ? "key-white" : "key-black"} ${keydown ? "keydown" : ""}`;
 
+  //detecting viewport dimensions for mobile touch events instead of click events
   const width = window.outerWidth;
   const height = window.outerHeight;
   const isLandScape = width > height ? true : false;
@@ -37,11 +43,16 @@ export default function Key(props) {
 		} else if (keydown === false) {
 			noteReleased(octave, note);
 		}
-	}, [keydown]);
+	}, [keydown])
 
   const notePressedHandler = (event) => {
-    //check for primary mouse button
+    event.stopPropagation();
+
     if ((event.buttons & 1) && width > 800) {
+      //allows release of parent white keys
+      if (whiteKeyRef) {
+        whiteKeyRelease()
+      }
       if (!keydown) {
         setKeydown(true);
       }
@@ -73,7 +84,9 @@ export default function Key(props) {
 
   return (
     //mouseOver and mouseLeave events allow for dragging over notes
-    <div 
+    <div
+      id={id}
+      ref={ref}
       className={keyClassNames}
       onMouseDown={e => notePressedHandler(e)}
       onMouseOver={e => notePressedHandler(e)}
@@ -81,6 +94,24 @@ export default function Key(props) {
       onMouseLeave={() => noteReleasedHandler()}
       onTouchStart={() => touchStartHandler()}
       onTouchEnd={() => touchEndHandler()}>
+      {blackKeyProps && 
+        <Key 
+          whiteKeyRef={ref.current}
+          whiteKeyRelease={noteReleasedHandler}
+          id={blackKeyProps.id}
+          key={blackKeyProps.key}
+          note={blackKeyProps.note}
+          octave={blackKeyProps.octave}
+          freq={blackKeyProps.freq}
+          notePressed={blackKeyProps.notePressed}
+          noteReleased={blackKeyProps.noteReleased}
+          keyDown={blackKeyProps.keyDown}
+          keyUp={blackKeyProps.keyUp}
+          input={blackKeyProps.input}
+          keysPressed={blackKeyProps.keysPressed}
+          whiteKey={blackKeyProps.whiteKey}
+        />
+      }
     </div>
   )
 }

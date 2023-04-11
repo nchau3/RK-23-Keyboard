@@ -2,7 +2,7 @@ import { useState } from "react";
 import createNoteTable from "./noteTable";
 import delayInSeconds from "./utils/delay-in-seconds";
 import actuallySetTargetAtTime from "./utils/actually-set-target-at-time";
-import * as voiceSelect from "./voiceSelect";
+import voiceLibrary from "./voiceSelect";
 
 //context and main nodes declared outside of component
 const audioContext = new AudioContext();
@@ -50,23 +50,32 @@ for (let i = 0; i < 9; i++) {
 export default function useAudioContext() {
   //sliders object leaves room to implement other levels (EQ, filters)
   const [sliders, setSliders] = useState({
-    masterGain: 0.5
+    gain: 0.1048
   });
 
-  const [voice, setVoice] = useState(voiceSelect.voice1);
+  const [voice, setVoice] = useState(voiceLibrary[0]);
 
   const [octaveModifier, setOctaveModifier] = useState(0);
 
   //gain node capped heavily to ease distortion and improve sound quality
-  mainGainNode.gain.value = sliders.masterGain / 10;
+  mainGainNode.gain.value = sliders.gain / 10;
   
   const changeSliders = (slider, newValue) => {
     setSliders(prev => ({...prev, [slider]: newValue}));
   }
 
-  const changeVoice = (newVoice) => {
-    setVoice(voiceSelect[newVoice]);
-  }
+  const changeVoice = (value) => {
+    const currentIndex = voiceLibrary.indexOf(voice);
+    const newIndex = currentIndex + value;
+
+    if (newIndex === voiceLibrary.length) {
+      setVoice(voiceLibrary[0]);
+    } else if (newIndex < 0) {
+      setVoice(voiceLibrary[voiceLibrary.length - 1])
+    } else {
+      setVoice(voiceLibrary[currentIndex + value]);
+    }
+  };
 
   const convertOctave = (modifier) => {
     switch (modifier) {
@@ -143,7 +152,7 @@ export default function useAudioContext() {
         audioContext.currentTime,
         release
       );
-      // delay to allow for decay to complete
+      // delay to allow for release to complete
       await delayInSeconds(release);
       oldestPlayedNode.voiceNode.disconnect();
     }
@@ -161,6 +170,7 @@ export default function useAudioContext() {
     octaveModifier,
     setOctaveModifier,
     convertOctave,
+    voice,
     changeVoice
    };
 }

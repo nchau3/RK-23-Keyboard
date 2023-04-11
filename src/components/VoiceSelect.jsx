@@ -1,33 +1,23 @@
-import { useState } from "react"
-
 export default function VoiceSelect(props) {
-  const [selected, setSelected] = useState("voice1");
-
-  const changeVoice = (newVoice) => {
-    props.onSelect(newVoice);
-    setSelected(newVoice);
-  }
+  const { voice, onSelect } = props;
 
   return (
     <div className="voice-select-container">
       <label htmlFor="voice-select">VOICE SELECT</label>
-      <ul className="voice-select">
-        <li 
-          className={selected === "voice1" ? "selected" : ""}
-          onClick={() => changeVoice("voice1")}
-          >
-            VOICE 1</li>
-          <li 
-          className={selected === "voice2" ? "selected" : ""}
-          onClick={() => changeVoice("voice2")}
-          >
-            VOICE 2</li>
-          <li 
-          className={selected === "voice3" ? "selected" : ""}
-          onClick={() => changeVoice("voice3")}
-          >
-            VOICE 3</li>
-      </ul>
+      <div className="voice-select">
+        <div 
+          className="control-button"
+          onClick={() => onSelect(-1)}
+        ><i className="fa-solid fa-caret-left"></i></div>
+        <div className="voice-display">
+          <div>{voice.name.toUpperCase()}</div>
+          <div>{voice.id}</div>
+        </div>
+        <div 
+          className="control-button"
+          onClick={() => onSelect(1)}
+        ><i className="fa-solid fa-caret-right"></i></div>
+      </div>
     </div>
   )
 }
