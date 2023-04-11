@@ -66,7 +66,8 @@ export default function Key(props) {
     }
   }
 
-  const touchStartHandler = () => {
+  const touchStartHandler = (event) => {
+    event.stopPropagation();
     if ((!isLandScape && width < 480) || (isLandScape && width < 800)) {
       if (!keydown) {
         setKeydown(true);
@@ -74,7 +75,7 @@ export default function Key(props) {
     }
   }
 
-  const touchEndHandler = () => {
+  const touchEndHandler = (event) => {
     if ((!isLandScape && width < 480) || (isLandScape && width < 800)) {
       if (keydown) {
         setKeydown(false);
@@ -92,7 +93,7 @@ export default function Key(props) {
       onMouseOver={e => notePressedHandler(e)}
       onMouseUp={() => noteReleasedHandler()}
       onMouseLeave={() => noteReleasedHandler()}
-      onTouchStart={() => touchStartHandler()}
+      onTouchStart={e => touchStartHandler(e)}
       onTouchEnd={() => touchEndHandler()}>
       {blackKeyProps && 
         <Key 
