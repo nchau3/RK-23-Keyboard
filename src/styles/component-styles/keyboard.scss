@@ -27,14 +27,7 @@
 
 .key-wrapper {
   flex: 1;
-}
-
-.key {
   color: black;
-  
-  input {
-    display: none;
-  }
 }
 
 .key-white {
@@ -54,11 +47,11 @@
   color: white;
   background-color: black;
 
-  border-bottom-left-radius: 3px;
-  border-bottom-right-radius: 3px;
   border-bottom: solid 7px rgb(56, 56, 56);
   border-right: solid 5px rgb(29, 29, 29);
   border-left: solid 5px rgb(0, 0, 0);
+  border-bottom-left-radius: 3px;
+  border-bottom-right-radius: 3px;
 
   position: relative;
   margin: 0 auto;

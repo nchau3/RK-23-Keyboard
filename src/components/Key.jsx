@@ -1,9 +1,11 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 export default function Key(props) {
   const [keydown, setKeydown] = useState(false);
+  const ref = useRef();
 
-  const { 
+  const {
+    id,
     octave,
     note,
     freq, 
@@ -12,10 +14,12 @@ export default function Key(props) {
     input, 
     whiteKey, 
     keysPressed,
-    blackKeyProps
+    blackKeyProps,
+    whiteKeyRef,
+    whiteKeyRelease
   } = props;
 
-  const keyClassNames = `${whiteKey ? "key key-white" : "key key-black"} ${keydown ? "keydown" : ""}`;
+  const keyClassNames = `${whiteKey ? "key-white" : "key-black"} ${keydown ? "keydown" : ""}`;
 
   //detecting viewport dimensions for mobile touch events instead of click events
   const width = window.outerWidth;
@@ -39,12 +43,16 @@ export default function Key(props) {
 		} else if (keydown === false) {
 			noteReleased(octave, note);
 		}
-	}, [keydown]);
+	}, [keydown])
 
   const notePressedHandler = (event) => {
     event.stopPropagation();
-    //check for primary mouse button
+
     if ((event.buttons & 1) && width > 800) {
+      //allows release of parent white keys
+      if (whiteKeyRef) {
+        whiteKeyRelease()
+      }
       if (!keydown) {
         setKeydown(true);
       }
@@ -76,7 +84,9 @@ export default function Key(props) {
 
   return (
     //mouseOver and mouseLeave events allow for dragging over notes
-    <div 
+    <div
+      id={id}
+      ref={ref}
       className={keyClassNames}
       onMouseDown={e => notePressedHandler(e)}
       onMouseOver={e => notePressedHandler(e)}
@@ -86,6 +96,9 @@ export default function Key(props) {
       onTouchEnd={() => touchEndHandler()}>
       {blackKeyProps && 
         <Key 
+          whiteKeyRef={ref.current}
+          whiteKeyRelease={noteReleasedHandler}
+          id={blackKeyProps.id}
           key={blackKeyProps.key}
           note={blackKeyProps.note}
           octave={blackKeyProps.octave}

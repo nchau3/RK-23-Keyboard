@@ -67,7 +67,7 @@ export default function useAudioContext() {
   const changeVoice = (value) => {
     const currentIndex = voiceLibrary.indexOf(voice);
     const newIndex = currentIndex + value;
-    
+
     if (newIndex === voiceLibrary.length) {
       setVoice(voiceLibrary[0]);
     } else if (newIndex < 0) {
@@ -152,7 +152,7 @@ export default function useAudioContext() {
         audioContext.currentTime,
         release
       );
-      // delay to allow for decay to complete
+      // delay to allow for release to complete
       await delayInSeconds(release);
       oldestPlayedNode.voiceNode.disconnect();
     }

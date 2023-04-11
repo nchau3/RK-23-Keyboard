@@ -78,7 +78,8 @@ export default function Keyboard() {
       // blackKeys will be rendered as children of their preceding white key for styling purposes
       if (next && !isBlackKey(noteIndex) && isBlackKey(next[0])) {
         const blackKeyProps = {
-          key: `${next[0]}${next[1]}`,
+          id: `${next[0]}${next[1].toString().slice(0, 3)}`,
+          key: `${next[0]}${next[1].toString().slice(0, 3)}`,
           note: next[0],
           octave: octaveIndex,
           freq: next[1],
@@ -93,8 +94,9 @@ export default function Keyboard() {
 
         return (
           <div className="key-wrapper" key={`key-wrapper ${octaveIndex}-${keyIndex}`}>
-            <Key 
-              key={`${key[0]}${key[1]}`}
+            <Key
+              id={`${key[0]}${key[1].toString().slice(0, 3)}`}
+              key={`${key[0]}${key[1].toString().slice(0, 3)}`}
               note={key[0]}
               octave={octaveIndex}
               freq={key[1]}
@@ -114,7 +116,8 @@ export default function Keyboard() {
         return (
           <div className="key-wrapper" key={`key-wrapper ${octaveIndex}-${keyIndex}`}>
             <Key 
-            key={`${key[0]}${key[1]}`}
+            id={`${key[0]}${key[1].toString().slice(0, 3)}`}
+            key={`${key[0]}${key[1].toString().slice(0, 3)}`}
             note={key[0]}
             octave={octaveIndex}
             freq={key[1]}
