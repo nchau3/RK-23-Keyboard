@@ -68,7 +68,7 @@ export default function Key(props) {
 
   const touchStartHandler = (event) => {
     event.stopPropagation();
-    if ((!isLandScape && width < 480) || (isLandScape && width < 800)) {
+    if ((!isLandScape && width < 480) || (isLandScape && height < 480)) {
       if (!keydown) {
         setKeydown(true);
       }
@@ -76,7 +76,7 @@ export default function Key(props) {
   }
 
   const touchEndHandler = (event) => {
-    if ((!isLandScape && width < 480) || (isLandScape && width < 800)) {
+    if ((!isLandScape && width < 480) || (isLandScape && height < 480)) {
       if (keydown) {
         setKeydown(false);
       }
