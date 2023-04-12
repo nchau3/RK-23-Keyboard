@@ -110,16 +110,31 @@
   width: 4rem;
 }
 
+.button-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  height: 90%;
+  margin-left: .5rem;
+}
+
 .control-button {
-  font-size: 1.5em;
-  padding: 0 .5rem;
-  color: rgb(255, 93, 120);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 1.35rem;
+  width: 4rem;
+  font-size: .5em;
+  border-radius: 2px;
+
+  background-color: variables.$button-color;
 
   &:hover {
-    transform: scale(110%);
+    transform: scale(105%);
   }
 
   &:active {
-    transform: scale(1);
+    transform: revert;
   }
 }
