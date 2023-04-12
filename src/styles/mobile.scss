@@ -1,4 +1,4 @@
-@media only screen and (max-width: 450px) {
+@media only screen and (orientation: portrait) and (max-width: 450px) {
   :root {
     display: flex;
     justify-content: center;
@@ -38,5 +38,47 @@
   .keyboard {
     height: 90vw;
     width: 85vh;
+  }
+}
+
+@media only screen and (orientation: landscape) and (max-height: 450px) {
+  :root {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    max-height: 100vh;
+  }
+  
+  #App {
+    height: 100%;
+    width: 100%;
+
+    h1 {
+      display: none;
+    }
+  }
+
+  .instructions {
+    display: none;
+  }
+
+  .controls {
+    .slider {
+      height: 2rem;
+    }
+
+    label {
+      font-size: .85em;
+      margin: .15em;
+    }
+  }
+
+  .lower-bar {
+    height: 2rem;
+  }
+
+  .keyboard {
+    height: 85vh;
+    width: 85vw;
   }
 }
