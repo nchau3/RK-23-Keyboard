@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 
+//notes play on click, on key input or touch for mobile
 export default function Key(props) {
   const [keydown, setKeydown] = useState(false);
   const ref = useRef();
@@ -85,6 +86,8 @@ export default function Key(props) {
 
   return (
     //mouseOver and mouseLeave events allow for dragging over notes
+
+    //black keys are nested inside of preceding white keys (F# child of F parent) for responsive styling purposes
     <div
       id={id}
       ref={ref}

@@ -50,7 +50,7 @@ for (let i = 0; i < 9; i++) {
 export default function useAudioContext() {
   //sliders object leaves room to implement other levels (EQ, filters)
   const [sliders, setSliders] = useState({
-    gain: 0.1048
+    gain: 0.1048 // (50% of logarithmic slider)
   });
 
   const [voice, setVoice] = useState(voiceLibrary[0]);
@@ -152,7 +152,7 @@ export default function useAudioContext() {
         audioContext.currentTime,
         release
       );
-      // delay to allow for release to complete
+      // delay to allow for release to complete before node is disconnected
       await delayInSeconds(release);
       oldestPlayedNode.voiceNode.disconnect();
     }
