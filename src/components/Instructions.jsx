@@ -4,6 +4,7 @@ import ComputerKey from "./ComputerKey";
 //styles
 import "../styles/component-styles/instructions.scss";
 
+//visual diagram of key-mapping for desktop users
 export default function Instructions() {
   const getQwertyRows = () => {
     const blackKeys = [2, 4, 5, 7, 8, 9];

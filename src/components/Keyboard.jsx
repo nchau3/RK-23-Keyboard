@@ -25,6 +25,8 @@ export default function Keyboard() {
 
   useMidiController({ notePressed, noteReleased });
 
+  //tracks all relevant computer keys down, passes to individual piano keys
+  //note plays whenever a match (or matches) are found
   const [keysPressed, setKeysPressed] = useState([]);
 
   const handleKeyDown = (event) => {
@@ -37,6 +39,7 @@ export default function Keyboard() {
     setKeysPressed(update);
   }
 
+  //auto-focuses the keyboard element on load to accept keyboard events
   const ref = useRef(null);
 
   useEffect(() => {
