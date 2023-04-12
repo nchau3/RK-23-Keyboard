@@ -12,7 +12,7 @@ I thought that making something like this in the browser would be a great chance
 
 ## Final Product
 
-!["main-page"]()
+!["react-keyboard"](https://github.com/nchau3/RK-23-Keyboard/blob/main/docs/RK-23-Keyboard.jpg)
 
 Check out the live page [here](https://nchau3.github.io/RK-23-Keyboard/) (best viewed on desktop)!
 
